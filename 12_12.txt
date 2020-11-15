@@ -1,0 +1,25 @@
+IEnumerable
+array
+lists
+queue
+stack
+set
+hashset
+dictionnary
+Link library querry
+
+linked lists
+	...
+	could go 2d	
+
+binary trees
+	depth first search
+	algorithms
+	...
+
+
+A* algorithms
+
+
+
+

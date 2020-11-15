@@ -1,0 +1,15 @@
+{
+    "name": "FutureGames.Algorts",
+    "references": [
+        "GUID:cb10d765ceca87043be0eed727851a44"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

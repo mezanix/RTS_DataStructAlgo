@@ -1,0 +1,22 @@
+cellular automata
+perlin
+voronoi
+
+A*
+
+descision tree
+search tree
+
+Kd tree
+
+spatial repartition
+
+Combinatory for optimisation
+
+Neural network, AI 
+
+sorting algorithms,
+
+classifing algorithms
+
+boids algorithms

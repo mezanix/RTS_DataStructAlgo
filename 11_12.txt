@@ -1,0 +1,13 @@
+Target
+	Doing an RTS game. as example.
+	Generate a map
+		Data manipulation and algorithms
+	Units (N):
+		implement spatial (space), a unit should detect the neighbors
+		path finding 
+		boids movement
+		
+		sort distance enemies
+
+Perline noise
+	concept, what 
