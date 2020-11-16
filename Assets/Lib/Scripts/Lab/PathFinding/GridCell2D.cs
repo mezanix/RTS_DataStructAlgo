@@ -23,7 +23,13 @@ namespace FutureGames.Lab
 
 
         public static Color hoverColor = Color.black;
-        public static Color neiborColor = Color.blue;
+        public static Color defaultColor = Color.grey;
+
+        public static Color wallColor = Color.red;
+
+        public static Color neiborColor = Color.green;
+        public static Color frontierColor = Color.blue;
+
 
         MouseState mouseState = MouseState.None;
 
@@ -34,11 +40,13 @@ namespace FutureGames.Lab
 
             this.mono = mono;
             this.mono.cell = this;
+
+            SetColor(defaultColor);
         }
 
         public void Run()
         {
-            ColorOnMouseState();
+            //ColorOnMouseState();
 
             //SetNeighborsMouseState();
         }
@@ -60,6 +68,11 @@ namespace FutureGames.Lab
         //    }    
         //}
 
+        public void SetColor(Color color)
+        {
+            mono.SetColor(color);
+        }
+
         public void SetNeiborsMouseState(MouseState state)
         {
             foreach(GridCell2D t in neighbors)
@@ -78,15 +91,15 @@ namespace FutureGames.Lab
             switch(mouseState)
             {
                 case MouseState.None:
-                    mono.SetColor(Color.white);
+                    SetColor(Color.white);
                     break;
 
                 case MouseState.Hover:
-                    mono.SetColor(hoverColor);
+                    SetColor(hoverColor);
                     break;
 
                 case MouseState.NeighborOfHover:
-                    mono.SetColor(neiborColor);
+                    SetColor(neiborColor);
                     break;
             }
         }

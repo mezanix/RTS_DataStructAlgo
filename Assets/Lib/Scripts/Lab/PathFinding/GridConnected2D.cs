@@ -40,6 +40,7 @@ namespace FutureGames.Lab
                     Vector2Int index = new Vector2Int(x, y);
                     GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     GridCell2DMono mono = go.AddComponent<GridCell2DMono>();
+                    mono.SetMaterial(CellMaterial);
                     go.transform.position = IndexToPosition(index);
                     go.transform.localScale = 0.9f * scale.x * Vector3.one;
 

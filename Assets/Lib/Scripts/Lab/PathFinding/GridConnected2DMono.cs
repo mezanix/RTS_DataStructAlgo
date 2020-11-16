@@ -10,10 +10,15 @@ namespace FutureGames.Lab
 
         GridConnected2D grid = null;
 
+        Grid2DSearcher searcher = null;
+
         private void Start()
         {
             grid = new GridConnected2D(width, height);
             grid.Generate();
+
+            searcher = new Grid2DSearcher(grid);
+            StartCoroutine(searcher.BreadthFirstTravel(grid.Cells[width/2, height/2]));
         }
     }
 }

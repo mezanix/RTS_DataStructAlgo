@@ -39,5 +39,10 @@ namespace FutureGames.Lab
         {
             MyMeshRenderer.material.color = color;
         }
+
+        public void SetMaterial(Material material)
+        {
+            MyMeshRenderer.material = material;
+        }
     }
 }
