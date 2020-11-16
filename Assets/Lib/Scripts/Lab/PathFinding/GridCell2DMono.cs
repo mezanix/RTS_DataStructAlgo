@@ -6,7 +6,6 @@ namespace FutureGames.Lab
 {
     public class GridCell2DMono : MonoBehaviour
     {
-        MeshRenderer myMeshRenderer = null;
         MeshRenderer MyMeshRenderer
         {
             get
@@ -25,14 +24,19 @@ namespace FutureGames.Lab
 
         private void OnMouseOver()
         {
-            cell.SetMouseState(MouseState.Hover);
-            cell.SetNeiborsMouseState(MouseState.NeighborOfHover);
+            //cell.SetMouseState(MouseState.Hover);
+            //cell.SetNeiborsMouseState(MouseState.NeighborOfHover);
         }
 
         private void OnMouseExit()
         {
-            cell.SetMouseState(MouseState.None);
-            cell.SetNeiborsMouseState(MouseState.None);
+            //cell.SetMouseState(MouseState.None);
+            //cell.SetNeiborsMouseState(MouseState.None);
+        }
+
+        private void OnMouseDown()
+        {
+            cell.SetMeAsTarget();
         }
 
         public void SetColor(Color color)

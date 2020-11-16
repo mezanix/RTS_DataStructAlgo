@@ -4,15 +4,25 @@ using UnityEngine;
 
 namespace FutureGames.Lab
 {
-    public enum MouseState
+    //public enum MouseState
+    //{
+    //    None,
+    //    Hover,
+    //    NeighborOfHover,
+    //}
+
+    public enum WalkState
     {
-        None,
-        Hover,
-        NeighborOfHover,
+        Start,
+        Target,
+        Walkable,
+        Wall,
     }
 
     public class GridCell2D
     {
+        public static Action<GridCell2D> BecomeTarget = delegate { };
+
         GridConnected2D grid;
         Vector2Int index = Vector2Int.zero;
 
@@ -22,18 +32,23 @@ namespace FutureGames.Lab
         GridCell2DMono mono = null;
 
 
-        public static Color hoverColor = Color.black;
+        public static Color startColor = Color.black;
         public static Color defaultColor = Color.grey;
 
         public static Color wallColor = Color.red;
 
-        public static Color neiborColor = Color.green;
+        public static Color targetColor = Color.green;
         public static Color frontierColor = Color.blue;
 
+        public static Color pathColor = Color.yellow;
 
-        MouseState mouseState = MouseState.None;
 
-        public GridCell2D(GridConnected2D grid, Vector2Int index, GridCell2DMono mono)
+
+        //MouseState mouseState = MouseState.None;
+
+        WalkState walkState = WalkState.Walkable;
+
+        public GridCell2D(GridConnected2D grid, Vector2Int index, GridCell2DMono mono, WalkState walkState)
         {
             this.grid = grid;
             this.index = index;
@@ -42,6 +57,25 @@ namespace FutureGames.Lab
             this.mono.cell = this;
 
             SetColor(defaultColor);
+
+            this.walkState = walkState;
+            switch(walkState)
+            {
+                case WalkState.Start:
+                    mono.SetColor(startColor);
+                    break;
+
+                case WalkState.Target:
+                    mono.SetColor(targetColor);
+                    break;
+
+                case WalkState.Walkable:
+                    break;
+
+                case WalkState.Wall:
+                    mono.SetColor(wallColor);
+                    break;
+            }
         }
 
         public void Run()
@@ -68,41 +102,52 @@ namespace FutureGames.Lab
         //    }    
         //}
 
+        public void SetMeAsTarget()
+        {
+            BecomeTarget(this);
+        }
+
         public void SetColor(Color color)
         {
+            if (walkState == WalkState.Wall || walkState == WalkState.Start || walkState == WalkState.Target)
+                return;
+
             mono.SetColor(color);
         }
 
-        public void SetNeiborsMouseState(MouseState state)
+        public bool IsWall()
         {
-            foreach(GridCell2D t in neighbors)
-            {
-                t.SetMouseState(state);
-            }
+            return walkState == WalkState.Wall;
         }
 
-        public void SetMouseState(MouseState newState)
-        {
-            mouseState = newState;
-        }
+        //public void SetNeiborsMouseState(MouseState state)
+        //{
+        //    foreach(GridCell2D t in neighbors)
+        //    {
+        //        t.SetMouseState(state);
+        //    }
+        //}
 
-        private void ColorOnMouseState()
-        {
-            switch(mouseState)
-            {
-                case MouseState.None:
-                    SetColor(Color.white);
-                    break;
+        //public void SetMouseState(MouseState newState)
+        //{
+        //    mouseState = newState;
+        //}
 
-                case MouseState.Hover:
-                    SetColor(hoverColor);
-                    break;
+        //private void ColorOnMouseState()
+        //{
+        //    switch(mouseState)
+        //    {
+        //        case MouseState.None:
+        //            break;
 
-                case MouseState.NeighborOfHover:
-                    SetColor(neiborColor);
-                    break;
-            }
-        }
+        //        case MouseState.Hover:
+        //            SetColor(hoverColor);
+        //            break;
+
+        //        case MouseState.NeighborOfHover:
+        //            break;
+        //    }
+        //}
 
         public void StoreNeighbors()
         {

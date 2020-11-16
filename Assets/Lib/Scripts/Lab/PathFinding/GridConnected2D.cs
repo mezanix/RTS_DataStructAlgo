@@ -29,6 +29,19 @@ namespace FutureGames.Lab
             }
         }
 
+        RectInt[] walls = new RectInt[]
+        {
+            new RectInt(0, 0, 4, 2),
+            new RectInt(15, 9, 3, 5),
+            new RectInt(4, 5, 2, 15)
+        };
+
+        Vector2Int Target = new Vector2Int(2, 16);
+        Vector2Int Start => new Vector2Int(width / 2, Height / 2);
+
+        public GridCell2D TargetCell => cells[Target.x, Target.y];
+        public GridCell2D StartCell => cells[Start.x, Start.y];
+
         public void Generate()
         {
             cells = new GridCell2D[width, height];
@@ -44,7 +57,7 @@ namespace FutureGames.Lab
                     go.transform.position = IndexToPosition(index);
                     go.transform.localScale = 0.9f * scale.x * Vector3.one;
 
-                    cells[x, y] = new GridCell2D(this, index, mono);
+                    cells[x, y] = new GridCell2D(this, index, mono, GetWalkState(index));
                 }
             }
 
@@ -57,12 +70,43 @@ namespace FutureGames.Lab
             }
         }
 
+        WalkState GetWalkState(Vector2Int index)
+        {
+            WalkState r = WalkState.Walkable;
+
+            if (index == Start)
+            {
+                r = WalkState.Start;
+            }
+            else if (index == Target)
+            {
+                r = WalkState.Target;
+            }
+            else
+            {
+                r = InWalls(index) ? WalkState.Wall : WalkState.Walkable;
+            }
+
+            return r;
+        }
+
         public Vector3 IndexToPosition(Vector2Int index)
         {
             return Vector3.one * 0.5f + new Vector3(
                 index.x * scale.x,
                 index.y * scale.y,
                 0f);
+        }
+
+        bool InWalls(Vector2Int index)
+        {
+            foreach (RectInt t in walls)
+            {
+                if (t.Contains(index))
+                    return true;
+            }
+
+            return false;
         }
     }
 }
