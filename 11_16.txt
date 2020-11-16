@@ -1,0 +1,8 @@
+Implement a simple 2d grid and 2d cell
+	
+	each knows its neighbors
+	
+perform on the grid
+	breadth first search
+	Dijkstra’s algorithm
+	A*
