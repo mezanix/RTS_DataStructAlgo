@@ -80,6 +80,9 @@ namespace FutureGames.Lab
                     cameFrom.Add(t, current);
                 }
 
+                if (current == grid.TargetCell)
+                    break;
+
                 foreach (GridCell2D t in cameFrom.Keys)
                 {
                     GridCell2D value = cameFrom[t];
@@ -111,7 +114,8 @@ namespace FutureGames.Lab
 
             while (current != grid.StartCell)
             {
-                //if (cameFrom.ContainsKey(current) == true)
+                if (cameFrom.ContainsKey(current) == false)
+                    break;
 
                 current = cameFrom[current];
                 current.SetColor(GridCell2D.pathColor);

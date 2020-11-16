@@ -36,7 +36,7 @@ namespace FutureGames.Lab
             new RectInt(4, 5, 2, 15)
         };
 
-        Vector2Int Target = new Vector2Int(2, 16);
+        Vector2Int Target = new Vector2Int(18, 11);
         Vector2Int Start => new Vector2Int(width / 2, Height / 2);
 
         public GridCell2D TargetCell => cells[Target.x, Target.y];

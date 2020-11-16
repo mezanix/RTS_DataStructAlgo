@@ -42,7 +42,7 @@ namespace FutureGames.Lab
 
         public static Color pathColor = Color.yellow;
 
-
+        bool fourNeibs = false;
 
         //MouseState mouseState = MouseState.None;
 
@@ -155,74 +155,119 @@ namespace FutureGames.Lab
             if (IsDownLimit() && !IsDownLeftLimit() && !IsDownRightLimit())
             {
                 neighbors.Add(grid.Cells[index.x - 1, index.y]);
-                neighbors.Add(grid.Cells[index.x - 1, index.y + 1]);
+                
+                if(fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x - 1, index.y + 1]);
+                
                 neighbors.Add(grid.Cells[index.x, index.y + 1]);
-                neighbors.Add(grid.Cells[index.x + 1, index.y + 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x + 1, index.y + 1]);
+
                 neighbors.Add(grid.Cells[index.x + 1, index.y]);
             }
             else if (IsUpLimit() && !IsUpLeftLimit() && !IsUpRightLimit())
             {
                 neighbors.Add(grid.Cells[index.x - 1, index.y]);
-                neighbors.Add(grid.Cells[index.x - 1, index.y - 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x - 1, index.y - 1]);
                 neighbors.Add(grid.Cells[index.x, index.y - 1]);
-                neighbors.Add(grid.Cells[index.x + 1, index.y - 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x + 1, index.y - 1]);
+
                 neighbors.Add(grid.Cells[index.x + 1, index.y]);
             }
 
             else if (IsLeftLimit() && !IsDownLeftLimit() && !IsUpLeftLimit())
             {
                 neighbors.Add(grid.Cells[index.x, index.y - 1]);
-                neighbors.Add(grid.Cells[index.x + 1, index.y - 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x + 1, index.y - 1]);
+
                 neighbors.Add(grid.Cells[index.x + 1, index.y]);
-                neighbors.Add(grid.Cells[index.x + 1, index.y + 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x + 1, index.y + 1]);
+
                 neighbors.Add(grid.Cells[index.x, index.y + 1]);
             }
             else if (IsRightLimit() && !IsDownRightLimit() && !IsUpRightLimit())
             {
                 neighbors.Add(grid.Cells[index.x, index.y - 1]);
-                neighbors.Add(grid.Cells[index.x - 1, index.y - 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x - 1, index.y - 1]);
+
                 neighbors.Add(grid.Cells[index.x - 1, index.y]);
-                neighbors.Add(grid.Cells[index.x - 1, index.y + 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x - 1, index.y + 1]);
+
                 neighbors.Add(grid.Cells[index.x, index.y + 1]);
             }
 
             else if (IsDownLeftLimit())
             {
                 neighbors.Add(grid.Cells[index.x, index.y + 1]);
-                neighbors.Add(grid.Cells[index.x + 1, index.y + 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x + 1, index.y + 1]);
+
                 neighbors.Add(grid.Cells[index.x + 1, index.y]);
             }
             else if (IsUpLeftLimit())
             {
                 neighbors.Add(grid.Cells[index.x, index.y - 1]);
-                neighbors.Add(grid.Cells[index.x + 1, index.y - 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x + 1, index.y - 1]);
+                
                 neighbors.Add(grid.Cells[index.x + 1, index.y]);
             }
 
             else if (IsDownRightLimit())
             {
                 neighbors.Add(grid.Cells[index.x, index.y + 1]);
-                neighbors.Add(grid.Cells[index.x - 1, index.y + 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x - 1, index.y + 1]);
+
                 neighbors.Add(grid.Cells[index.x - 1, index.y]);
             }
             else if (IsUpRightLimit())
             {
                 neighbors.Add(grid.Cells[index.x, index.y - 1]);
-                neighbors.Add(grid.Cells[index.x - 1, index.y - 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x - 1, index.y - 1]);
+
                 neighbors.Add(grid.Cells[index.x - 1, index.y]);
             }
 
             else
             {
                 neighbors.Add(grid.Cells[index.x - 1, index.y]);
-                neighbors.Add(grid.Cells[index.x - 1, index.y + 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x - 1, index.y + 1]);
+
                 neighbors.Add(grid.Cells[index.x, index.y + 1]);
-                neighbors.Add(grid.Cells[index.x + 1, index.y + 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x + 1, index.y + 1]);
+
                 neighbors.Add(grid.Cells[index.x + 1, index.y]);
 
-                neighbors.Add(grid.Cells[index.x - 1, index.y - 1]);
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x - 1, index.y - 1]);
+
                 neighbors.Add(grid.Cells[index.x, index.y - 1]);
-                neighbors.Add(grid.Cells[index.x + 1, index.y - 1]);
+
+                if (fourNeibs == false)
+                    neighbors.Add(grid.Cells[index.x + 1, index.y - 1]);
             }
         }
 
