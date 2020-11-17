@@ -18,7 +18,7 @@ namespace FutureGames.Lab
             grid.Generate();
 
             searcher = new Grid2DSearcher(grid);
-            StartCoroutine(searcher.BreadthFirstTravelPathTrack());
+            StartCoroutine(searcher.BreadthFirstTravelPathTrackCost());
         }
 
         private void Update()

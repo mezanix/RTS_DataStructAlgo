@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace FutureGames.Lab
 {
@@ -39,6 +40,12 @@ namespace FutureGames.Lab
         Vector2Int Target = new Vector2Int(18, 11);
         Vector2Int Start => new Vector2Int(width / 2, Height / 2);
 
+        Dictionary<int, RectInt> costs = new Dictionary<int, RectInt>()
+        {
+            {4, new RectInt(15, 9, 3, 5) },
+            {5, new RectInt(6, 3, 6, 2) }
+        };
+
         public GridCell2D TargetCell => cells[Target.x, Target.y];
         public GridCell2D StartCell => cells[Start.x, Start.y];
 
@@ -57,7 +64,7 @@ namespace FutureGames.Lab
                     go.transform.position = IndexToPosition(index);
                     go.transform.localScale = 0.9f * scale.x * Vector3.one;
 
-                    cells[x, y] = new GridCell2D(this, index, mono, GetWalkState(index));
+                    cells[x, y] = new GridCell2D(this, index, mono, GetWalkState(index), GetCost(index));
                 }
             }
 
@@ -68,6 +75,17 @@ namespace FutureGames.Lab
                     cells[x, y].StoreNeighbors();
                 }
             }
+        }
+
+        int GetCost(Vector2Int index)
+        {
+            foreach(int t in costs.Keys)
+            {
+                if (costs[t].Contains(index))
+                    return t;
+            }
+
+            return 1;
         }
 
         WalkState GetWalkState(Vector2Int index)
@@ -84,7 +102,7 @@ namespace FutureGames.Lab
             }
             else
             {
-                r = InWalls(index) ? WalkState.Wall : WalkState.Walkable;
+                //r = InWalls(index) ? WalkState.Wall : WalkState.Walkable;
             }
 
             return r;

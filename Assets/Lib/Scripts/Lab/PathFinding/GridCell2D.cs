@@ -19,7 +19,7 @@ namespace FutureGames.Lab
         Wall,
     }
 
-    public class GridCell2D
+    public class GridCell2D : IComparable
     {
         public static Action<GridCell2D> BecomeTarget = delegate { };
 
@@ -33,7 +33,7 @@ namespace FutureGames.Lab
 
 
         public static Color startColor = Color.black;
-        public static Color defaultColor = Color.grey;
+        public static Color defaultColor = Color.cyan;
 
         public static Color wallColor = Color.red;
 
@@ -48,7 +48,10 @@ namespace FutureGames.Lab
 
         WalkState walkState = WalkState.Walkable;
 
-        public GridCell2D(GridConnected2D grid, Vector2Int index, GridCell2DMono mono, WalkState walkState)
+        int cost = 1;
+        public int Cost { get => cost; set => cost = value; }
+
+        public GridCell2D(GridConnected2D grid, Vector2Int index, GridCell2DMono mono, WalkState walkState, int cost = 1)
         {
             this.grid = grid;
             this.index = index;
@@ -56,10 +59,12 @@ namespace FutureGames.Lab
             this.mono = mono;
             this.mono.cell = this;
 
+            this.cost = cost;
+
             SetColor(defaultColor);
 
             this.walkState = walkState;
-            switch(walkState)
+            switch (walkState)
             {
                 case WalkState.Start:
                     mono.SetColor(startColor);
@@ -76,6 +81,14 @@ namespace FutureGames.Lab
                     mono.SetColor(wallColor);
                     break;
             }
+        }
+
+        float ColorCostFactor()
+        {
+            float comp = (float)(20 - cost);
+            float deno = 20f;
+
+            return comp / deno;
         }
 
         public void Run()
@@ -112,11 +125,12 @@ namespace FutureGames.Lab
             if (walkState == WalkState.Wall || walkState == WalkState.Start || walkState == WalkState.Target)
                 return;
 
-            mono.SetColor(color);
+            mono.SetColor(color * ColorCostFactor());
         }
 
         public bool IsWall()
         {
+            return false;
             return walkState == WalkState.Wall;
         }
 
@@ -155,10 +169,10 @@ namespace FutureGames.Lab
             if (IsDownLimit() && !IsDownLeftLimit() && !IsDownRightLimit())
             {
                 neighbors.Add(grid.Cells[index.x - 1, index.y]);
-                
-                if(fourNeibs == false)
+
+                if (fourNeibs == false)
                     neighbors.Add(grid.Cells[index.x - 1, index.y + 1]);
-                
+
                 neighbors.Add(grid.Cells[index.x, index.y + 1]);
 
                 if (fourNeibs == false)
@@ -224,7 +238,7 @@ namespace FutureGames.Lab
 
                 if (fourNeibs == false)
                     neighbors.Add(grid.Cells[index.x + 1, index.y - 1]);
-                
+
                 neighbors.Add(grid.Cells[index.x + 1, index.y]);
             }
 
@@ -309,6 +323,20 @@ namespace FutureGames.Lab
         bool IsDownRightLimit()
         {
             return IsDownLimit() && IsRightLimit();
+        }
+
+        int IComparable.CompareTo(object obj)
+        {
+            GridCell2D other = obj as GridCell2D;
+            if (other == null)
+                return 0;
+
+            if (cost < other.cost)
+                return 1;
+            else if (cost > other.cost)
+                return -1;
+            else
+                return 0;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,6 +48,11 @@ namespace FutureGames.Lab
         public void SetMaterial(Material material)
         {
             MyMeshRenderer.material = material;
+        }
+
+        public Color GetColor()
+        {
+            return MyMeshRenderer.material.color;
         }
     }
 }
