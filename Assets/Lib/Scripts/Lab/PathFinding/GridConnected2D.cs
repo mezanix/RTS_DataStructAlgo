@@ -35,7 +35,7 @@ namespace FutureGames.Lab
             new RectInt(0, 0, 4, 2),
             new RectInt(15, 9, 3, 5),
             new RectInt(4, 5, 2, 15),
-            //new RectInt(4, 3, 6, 2)
+            new RectInt(4, 3, 6, 2)
         };
 
         Vector2Int Target = new Vector2Int(3, 12);
@@ -44,7 +44,7 @@ namespace FutureGames.Lab
         Dictionary<int, RectInt> costs = new Dictionary<int, RectInt>()
         {
             {4, new RectInt(15, 9, 3, 5) },
-            {40, new RectInt(4, 3, 6, 2) }
+            //{40, new RectInt(4, 3, 6, 2) }
         };
 
         public GridCell2D TargetCell => cells[Target.x, Target.y];

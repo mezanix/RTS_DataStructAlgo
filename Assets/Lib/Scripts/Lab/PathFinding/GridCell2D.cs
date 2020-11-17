@@ -62,12 +62,7 @@ namespace FutureGames.Lab
             get
             {
                 return distanceToTarget + cost;
-                //return distanceToTargetAndCost;
             }
-            //set
-            //{
-            //    distanceToTargetAndCost = value;
-            //}
         }
 
         public GridCell2D(GridConnected2D grid, Vector2Int index, GridCell2DMono mono, WalkState walkState, int cost = 1)
