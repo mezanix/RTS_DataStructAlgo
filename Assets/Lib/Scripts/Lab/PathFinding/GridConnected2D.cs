@@ -34,16 +34,17 @@ namespace FutureGames.Lab
         {
             new RectInt(0, 0, 4, 2),
             new RectInt(15, 9, 3, 5),
-            new RectInt(4, 5, 2, 15)
+            new RectInt(4, 5, 2, 15),
+            //new RectInt(4, 3, 6, 2)
         };
 
-        Vector2Int Target = new Vector2Int(18, 11);
+        Vector2Int Target = new Vector2Int(3, 12);
         Vector2Int Start => new Vector2Int(width / 2, Height / 2);
 
         Dictionary<int, RectInt> costs = new Dictionary<int, RectInt>()
         {
             {4, new RectInt(15, 9, 3, 5) },
-            {5, new RectInt(6, 3, 6, 2) }
+            {40, new RectInt(4, 3, 6, 2) }
         };
 
         public GridCell2D TargetCell => cells[Target.x, Target.y];
@@ -79,7 +80,7 @@ namespace FutureGames.Lab
 
         int GetCost(Vector2Int index)
         {
-            foreach(int t in costs.Keys)
+            foreach (int t in costs.Keys)
             {
                 if (costs[t].Contains(index))
                     return t;
@@ -102,7 +103,7 @@ namespace FutureGames.Lab
             }
             else
             {
-                //r = InWalls(index) ? WalkState.Wall : WalkState.Walkable;
+                r = InWalls(index) ? WalkState.Wall : WalkState.Walkable;
             }
 
             return r;

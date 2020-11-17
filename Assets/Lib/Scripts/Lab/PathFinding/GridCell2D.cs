@@ -25,6 +25,7 @@ namespace FutureGames.Lab
 
         GridConnected2D grid;
         Vector2Int index = Vector2Int.zero;
+        public Vector2Int Index => index;
 
         List<GridCell2D> neighbors = new List<GridCell2D>();
         public List<GridCell2D> Neighbors => neighbors;
@@ -41,6 +42,7 @@ namespace FutureGames.Lab
         public static Color frontierColor = Color.blue;
 
         public static Color pathColor = Color.yellow;
+        public static Color visitedColor = Color.white;
 
         bool fourNeibs = false;
 
@@ -50,6 +52,23 @@ namespace FutureGames.Lab
 
         int cost = 1;
         public int Cost { get => cost; set => cost = value; }
+
+        int distanceToTarget = int.MaxValue;
+        public int DistanceToTarget { get => distanceToTarget; set => distanceToTarget = value; }
+
+        int distanceToTargetAndCost = 1;
+        public int DistanceToTargetAndCost
+        {
+            get
+            {
+                return distanceToTarget + cost;
+                //return distanceToTargetAndCost;
+            }
+            //set
+            //{
+            //    distanceToTargetAndCost = value;
+            //}
+        }
 
         public GridCell2D(GridConnected2D grid, Vector2Int index, GridCell2DMono mono, WalkState walkState, int cost = 1)
         {
@@ -85,8 +104,8 @@ namespace FutureGames.Lab
 
         float ColorCostFactor()
         {
-            float comp = (float)(20 - cost);
-            float deno = 20f;
+            float comp = (float)(40 - cost);
+            float deno = 40f;
 
             return comp / deno;
         }
@@ -130,7 +149,7 @@ namespace FutureGames.Lab
 
         public bool IsWall()
         {
-            return false;
+            //return false;
             return walkState == WalkState.Wall;
         }
 
@@ -334,6 +353,32 @@ namespace FutureGames.Lab
             if (cost < other.cost)
                 return 1;
             else if (cost > other.cost)
+                return -1;
+            else
+                return 0;
+        }
+    }
+
+    public class GridCell2DDistanceToTargetComparer : IComparer<GridCell2D>
+    {
+        public int Compare(GridCell2D x, GridCell2D y)
+        {
+            if (x.DistanceToTarget < y.DistanceToTarget)
+                return 1;
+            else if (x.DistanceToTarget > y.DistanceToTarget)
+                return -1;
+            else
+                return 0;
+        }
+    }
+
+    public class GridCell2DDistanceToTargetAndCostComparer : IComparer<GridCell2D>
+    {
+        public int Compare(GridCell2D x, GridCell2D y)
+        {
+            if (x.DistanceToTargetAndCost < y.DistanceToTargetAndCost)
+                return 1;
+            else if (x.DistanceToTargetAndCost > y.DistanceToTargetAndCost)
                 return -1;
             else
                 return 0;
