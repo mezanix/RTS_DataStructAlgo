@@ -55,11 +55,16 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridConnected2D.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Fibonacci\ArithmetiqueSerie.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\Grid2DSearcher.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LinkedList\IntLinkedList.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\BinaryTree\BinaryTreeNodeMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\BinaryTree\BinaryTreeNode.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LinkedList\IntLinkedListMono.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridCell2DMono.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridCell2D.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridConnected2DMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Extensions\CollectionsExtensions.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\QueueAndLinkedList.cs" />
     <Compile Include="Assets\Lib\Scripts\Extensions\TextureExtensions.cs" />
@@ -67,11 +72,9 @@
     <Compile Include="Assets\Lib\Scripts\Noise\PerlinNoise.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LinkedList\IntLinkedListNode.cs" />
     <Compile Include="Assets\Lib\Scripts\Tests\TestPerlinNoise.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridConnected2D.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridCell2D.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridCell2DMono.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridConnected2DMono.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\Grid2DSearcher.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\MazeGenerator.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\Maze.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\MazeCell.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Lib\Scripts\FutureGames.Lib.asmdef" />

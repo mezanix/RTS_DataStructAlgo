@@ -34,7 +34,8 @@ namespace FutureGames.Lab
         {
             new RectInt(0, 0, 4, 2),
             new RectInt(15, 9, 3, 5),
-            new RectInt(4, 5, 2, 15),
+            new RectInt(4, 5, 2, 10),
+            new RectInt(4, 16, 2, 3),
             new RectInt(4, 3, 6, 2)
         };
 
