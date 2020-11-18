@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FutureGames.Lab
@@ -21,15 +22,41 @@ namespace FutureGames.Lab
             WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
             cells = new MazeCell[size.x, size.y];
             Vector2Int coord = RandomCoordinate;
-            while(Contains(coord) && GetCell(coord) == null)
+
+            List<MazeCell> activeCells = new List<MazeCell>();
+            FirstGenerationStep(activeCells);
+
+            while(activeCells.Count > 0)
             {
                 yield return delay;
-                CreateCell(coord);
-                coord += MazeDirections.RandomValue.ToVector2Int();
+                //CreateCell(coord);
+                //coord += MazeDirections.RandomValue.ToVector2Int();
+
+                NextGenerationStep(activeCells);
             }
+
+            Debug.Log("done");
         }
 
-        private void CreateCell(Vector2Int coord)
+        void FirstGenerationStep(List<MazeCell> activeCells)
+        {
+            activeCells.Add(CreateCell(RandomCoordinate));
+        }
+
+        void NextGenerationStep(List<MazeCell> activeCells)
+        {
+            int currentIndex = activeCells.Count - 1;
+            MazeCell currentCell = activeCells[currentIndex];
+            MazeDirection direction = MazeDirections.RandomValue;
+            Vector2Int coord = currentCell.coord + direction.ToVector2Int();
+
+            if (Contains(coord) && GetCell(coord) == null)
+                activeCells.Add(CreateCell(coord));
+            else
+                activeCells.RemoveAt(currentIndex);
+        }
+
+        private MazeCell CreateCell(Vector2Int coord)
         {
             MazeCell newCell = Instantiate(cellPrefab) as MazeCell;
             newCell.name = "Maze Cell " + coord.x + ", " + coord.y;
@@ -40,7 +67,11 @@ namespace FutureGames.Lab
                 coord.y - size.y * 0.5f + 0.5f, 
                 0f);
 
+            newCell.coord = coord;
+
             cells[coord.x, coord.y] = newCell;
+
+            return newCell;
         }
 
         public Vector2Int RandomCoordinate => new Vector2Int(Random.Range(0, size.x), Random.Range(0, size.y));

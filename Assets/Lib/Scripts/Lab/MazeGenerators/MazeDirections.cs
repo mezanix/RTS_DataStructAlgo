@@ -12,7 +12,7 @@ namespace FutureGames.Lab
 
     public static class MazeDirections
     {
-        const int count = 4;
+        public const int count = 4;
 
         public static MazeDirection RandomValue => (MazeDirection)Random.Range(0, count);
 
