@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace FutureGames.Lab
@@ -20,22 +19,42 @@ namespace FutureGames.Lab
         public IEnumerator Generate()
         {
             WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
-            for (int x = 0; x < size.x; x++)
+            cells = new MazeCell[size.x, size.y];
+            Vector2Int coord = RandomCoordinate;
+            while(Contains(coord) && GetCell(coord) == null)
             {
-                for (int z = 0; z < size.y; z++)
-                {
-                    yield return delay;
-                    CreateCell(x, z);
-                }
+                yield return delay;
+                CreateCell(coord);
+                coord += MazeDirections.RandomValue.ToVector2Int();
             }
         }
 
-        private void CreateCell(int x, int z)
+        private void CreateCell(Vector2Int coord)
         {
             MazeCell newCell = Instantiate(cellPrefab) as MazeCell;
-            newCell.name = "Maze Cell " + x + ", " + z;
+            newCell.name = "Maze Cell " + coord.x + ", " + coord.y;
             newCell.transform.parent = transform;
-            newCell.transform.position = new Vector3(x - size.x * 0.5f + 0.5f, 0f, z - size.y * 0.5f + 0.5f);
+
+            newCell.transform.position = new Vector3(
+                coord.x - size.x * 0.5f + 0.5f,
+                coord.y - size.y * 0.5f + 0.5f, 
+                0f);
+
+            cells[coord.x, coord.y] = newCell;
+        }
+
+        public Vector2Int RandomCoordinate => new Vector2Int(Random.Range(0, size.x), Random.Range(0, size.y));
+
+        public bool Contains(Vector2Int coord)
+        {
+            return
+                coord.x >= 0f && coord.x < size.x &&
+                coord.y >= 0f && coord.y < size.y;
+        }
+        
+        public MazeCell GetCell(Vector2Int coord)
+        {
+            return cells[coord.x, coord.y];
         }
     }
 }

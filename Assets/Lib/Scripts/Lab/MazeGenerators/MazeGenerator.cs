@@ -23,6 +23,8 @@ namespace FutureGames.Lab
             if (Input.GetKeyDown(KeyCode.Space) == false)
                 return;
 
+            StopAllCoroutines();
+
             Destroy(mazeInstance.gameObject);
 
             Begin();
