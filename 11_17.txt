@@ -1,8 +1,25 @@
 maze generation
 extend hexagonale
 
-inserting a value in sorted list
+quadtree 2d version of Octree
 
-quadtree
+O notation + Code analysis
+
+Sorting Algorithms
+	Populare ones
+	
+inserting a value in sorted list	
+
 pathfinding with quadtree
+other applications: data compression (texture)
+
 Conway's game of life
+
+
+Kd tree
+redblack tree
+AVL Tree
+
+Graph theory
+
+Hexadecimal encoding (mask, layer mask, bit)

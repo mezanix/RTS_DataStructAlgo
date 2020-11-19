@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Lib/Scripts/Lab/PathFinding/Grid.unity
+- path: Assets/Lib/Scripts/Lab/MazeGenerators/MazeGenerator.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

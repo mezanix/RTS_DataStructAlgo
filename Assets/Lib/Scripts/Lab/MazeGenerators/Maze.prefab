@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1af1a012f663e34395a7a7191fd66c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 20, y: 20}
+  size: {x: 5, y: 3}
   cellPrefab: {fileID: 5538210867354623706, guid: 1f0203c7993e6474097ad2868c44ed47, type: 3}
-  generationStepDelay: 0.001
+  generationStepDelay: 0.01
+  passagePrefab: {fileID: 255355064466893024, guid: 3c1090fb6bb520a4283e35ff19eb213c, type: 3}
+  wallPrefab: {fileID: 7390066643725335471, guid: eb6b1ba6efc820f4e9b326eb6c43dd09, type: 3}

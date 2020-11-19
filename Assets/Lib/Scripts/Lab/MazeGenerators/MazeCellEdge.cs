@@ -2,7 +2,7 @@
 
 namespace FutureGames.Lab
 {
-    public class MazeCellEdge : MonoBehaviour
+    public abstract class MazeCellEdge : MonoBehaviour
     {
         public MazeCell cell;
         public MazeCell other;
@@ -18,6 +18,8 @@ namespace FutureGames.Lab
 
             transform.parent = cell.transform;
             transform.localPosition = Vector3.zero;
+
+            transform.localRotation = direction.ToRotation();
         }
     }
 }

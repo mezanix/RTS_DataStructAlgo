@@ -17,6 +17,12 @@ namespace FutureGames.Lab
         [SerializeField]
         float generationStepDelay = 0.01f;
 
+        [SerializeField]
+        MazePassage passagePrefab = null;
+
+        [SerializeField]
+        MazeWall wallPrefab = null;
+
         public IEnumerator Generate()
         {
             WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
@@ -47,13 +53,53 @@ namespace FutureGames.Lab
         {
             int currentIndex = activeCells.Count - 1;
             MazeCell currentCell = activeCells[currentIndex];
-            MazeDirection direction = MazeDirections.RandomValue;
+            if(currentCell.IsFullyInitialized)
+            {
+                activeCells.RemoveAt(currentIndex);
+                return;
+            }
+            MazeDirection direction = currentCell.RandomUninitializedDirection;
             Vector2Int coord = currentCell.coord + direction.ToVector2Int();
 
-            if (Contains(coord) && GetCell(coord) == null)
-                activeCells.Add(CreateCell(coord));
-            else
-                activeCells.RemoveAt(currentIndex);
+            if (Contains(coord) == true)
+            {
+                MazeCell neighbor = GetCell(coord);
+                if (neighbor == null)
+                {
+                    neighbor = CreateCell(coord);
+                    CreatePassage(currentCell, neighbor, direction);
+                    activeCells.Add(neighbor);
+                }
+                else if (neighbor != null)
+                {
+                    CreateWall(currentCell, neighbor, direction);
+                }
+            }
+            else if (Contains(coord) == false)
+            {
+                CreateWall(currentCell, null, direction);
+            }
+        }
+
+        private void CreateWall(MazeCell currentCell, MazeCell neighbor, MazeDirection direction)
+        {
+            MazeWall wall = Instantiate(wallPrefab) as MazeWall;
+            wall.Init(currentCell, neighbor, direction);
+
+            if(neighbor != null)
+            {
+                wall = Instantiate(wallPrefab) as MazeWall;
+                wall.Init(neighbor, currentCell, direction.GetOpposite());
+            }
+        }
+
+        private void CreatePassage(MazeCell currentCell, MazeCell neighbor, MazeDirection direction)
+        {
+            MazePassage passage = Instantiate(passagePrefab) as MazePassage;
+            passage.Init(currentCell, neighbor, direction);
+
+            passage = Instantiate(passagePrefab) as MazePassage;
+            passage.Init(neighbor, currentCell, direction.GetOpposite());
         }
 
         private MazeCell CreateCell(Vector2Int coord)
