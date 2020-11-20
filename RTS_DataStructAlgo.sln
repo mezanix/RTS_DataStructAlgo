@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FutureGames.Lib", "FutureGames.Lib.csproj", "{5EF41B5F-DEF2-4D97-8753-3A29C77E4E28}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FutureGames.Algorts", "FutureGames.Algorts.csproj", "{D6DEDF11-A8B6-0F78-C1EB-76841A6ADA63}"
