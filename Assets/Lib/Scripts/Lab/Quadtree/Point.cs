@@ -2,7 +2,7 @@
 
 namespace FutureGames.Lab.QuadtreeSpace
 {
-    public class Point : MonoBehaviour
+    public class Point
     {
         public float x = 0f;
         public float y = 0f;

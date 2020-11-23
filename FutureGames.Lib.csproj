@@ -87,6 +87,7 @@
     <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Point.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Rectangle.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Quadtree.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\QuadtreeMono.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Lib\Scripts\FutureGames.Lib.asmdef" />

@@ -1,9 +1,10 @@
 **maze generation
 **extend hexagonale
 
-quadtree 2d version of Octree
+**quadtree 2d version of Octree
+	try to compress image
 
-Big O notation + Code analysis + code complexity
+**Big O notation + Code analysis + code complexity
 
 Sorting Algorithms
 	Populare ones
@@ -20,6 +21,7 @@ redblack tree
 AVL Tree
 
 marching squares
+	cloud data -> connected data (like mesh)
 
 Graph theory
 
