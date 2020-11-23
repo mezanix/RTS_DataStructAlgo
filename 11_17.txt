@@ -1,9 +1,9 @@
 **maze generation
-extend hexagonale
+**extend hexagonale
 
 quadtree 2d version of Octree
 
-O notation + Code analysis
+Big O notation + Code analysis + code complexity
 
 Sorting Algorithms
 	Populare ones
