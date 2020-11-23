@@ -38,7 +38,8 @@ namespace FutureGames.Lib
                         float sampleX = x / scale * frequency;
                         float sampleY = y / scale * frequency;
 
-                        float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2f - 1f;
+                        float perlinValue = Mathf.PerlinNoise(
+                            sampleX, sampleY) * 2f - 1f;
                         noiseHeight += perlinValue * amplitude;
 
                         amplitude *= persistance;

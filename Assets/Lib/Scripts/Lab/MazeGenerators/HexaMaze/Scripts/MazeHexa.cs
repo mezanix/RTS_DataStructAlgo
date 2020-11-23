@@ -61,7 +61,7 @@ namespace FutureGames.Lab
             MazeCellHexa currentCell = activeCells[currentIndex];
             if (currentCell.IsFullyInitialized)
             {
-                Debug.Log("Fully initialized cell");
+                //Debug.Log("Fully initialized cell");
                 activeCells.RemoveAt(currentIndex);
                 return;
             }
@@ -136,9 +136,9 @@ namespace FutureGames.Lab
         {
             for (int i = 0; i < cells.Count; i++)
             {
-                if (Vector2.Distance(cells[i].coord, coord) < 0.3f)
+                if (cells[i].coord == coord)
                 {
-                    Debug.Log("get cell");
+                    //Debug.Log("get cell");
                     return cells[i];
                 }
             }

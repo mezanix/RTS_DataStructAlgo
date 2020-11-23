@@ -58,13 +58,13 @@ namespace FutureGames.Lab
 
         static Vector2[] vectorsHexa = new Vector2[]
         {
-            new Vector2(1f, 1f), // northEast
-            new Vector2(Mathf.Sqrt(2f), 0f), // east
-            new Vector2(1f, -1f), // southEast
+            new Vector2(Mathf.Cos(60f*Mathf.Deg2Rad), Mathf.Sin(60f*Mathf.Deg2Rad)), // northEast
+            new Vector2(1f, 0f), // east
+            new Vector2(Mathf.Cos(60f*Mathf.Deg2Rad), -Mathf.Sin(60f*Mathf.Deg2Rad)), // southEast
 
-            new Vector2(-1f, -1f), // southWest
-            new Vector2(-Mathf.Sqrt(2f), 0f), // west
-            new Vector2(-1f, 1f) // northWest
+            new Vector2(-Mathf.Cos(60f*Mathf.Deg2Rad), -Mathf.Sin(60f*Mathf.Deg2Rad)), // southWest
+            new Vector2(-1f, 0f), // west
+            new Vector2(-Mathf.Cos(60f*Mathf.Deg2Rad), Mathf.Sin(60f*Mathf.Deg2Rad)) // northWest
         };
 
         private static Quaternion[] rotations = {

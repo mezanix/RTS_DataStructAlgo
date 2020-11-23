@@ -1,4 +1,4 @@
-maze generation
+**maze generation
 extend hexagonale
 
 quadtree 2d version of Octree
@@ -15,12 +15,11 @@ other applications: data compression (texture)
 
 Conway's game of life
 
-marching squares
-
-
 Kd tree
 redblack tree
 AVL Tree
+
+marching squares
 
 Graph theory
 
