@@ -16,17 +16,26 @@ namespace FutureGames.Lab.QuadtreeSpace
 
         float maxCumulatedWhite = 0f;
 
+        const float relativeLimit = 0.01f;
+
         public QuadtreeTextureComp(Rectangle boundary, Texture2D map)
         {
             this.boundary = boundary;
             this.map = map;
 
-            maxCumulatedWhite = CumulatedWhite(map);
+            maxCumulatedWhite = MaxCumulatedWhite(map);
+
+            //Debug.Log(this);
+        }
+
+        public override string ToString()
+        {
+            return "MaxCumul: " + maxCumulatedWhite + " RelativeCumul: " + RelativeCumulatedWhite();
         }
 
         float RelativeCumulatedWhite()
         {
-            return CumulatedWhite(map) / maxCumulatedWhite;
+            return PartialCumulatedWhite(map) / maxCumulatedWhite;
         }
 
         public void Show(Texture2D texture)
@@ -55,8 +64,15 @@ namespace FutureGames.Lab.QuadtreeSpace
             }
         }
 
-        public void Subdivide(Texture2D laplacianMap)
+        public void Subdivide()
         {
+            if (divided == true)
+                return;
+
+            if (RelativeCumulatedWhite() < relativeLimit)
+                return;
+
+            DoSubdivide();
         }
 
         void DoSubdivide()
@@ -68,16 +84,33 @@ namespace FutureGames.Lab.QuadtreeSpace
             southWest = new QuadtreeTextureComp(boundary.SouthWest, map);
 
             divided = true;
+
+            northEast.Subdivide();
+            northWest.Subdivide();
+            southEast.Subdivide();
+            southWest.Subdivide();
         }
 
-        float CumulatedWhite(Texture2D texture)
+        float PartialCumulatedWhite(Texture2D texture)
         {
             float r = 0f;
             for (float y = boundary.South; y < boundary.North; y += 1f)
             {
-                for (float x = boundary.West; x < boundary.East; x++)
+                for (float x = boundary.West; x < boundary.East; x+= 1f)
                 {
                     r += texture.GetPixel((int)x, (int)y).r;
+                }
+            }
+            return r;
+        }
+        float MaxCumulatedWhite(Texture2D texture)
+        {
+            float r = 0f;
+            for (int y = 0; y < texture.height; y ++)
+            {
+                for (int x = 0; x < texture.width; x++)
+                {
+                    r += texture.GetPixel(x, y).r;
                 }
             }
             return r;

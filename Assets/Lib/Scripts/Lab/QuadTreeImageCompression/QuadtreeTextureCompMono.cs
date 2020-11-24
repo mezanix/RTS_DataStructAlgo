@@ -57,7 +57,7 @@ namespace FutureGames.Lab.QuadtreeSpace
 
         private void Subdivide()
         {
-            quadtree.Subdivide(LaplacianMap);
+            quadtree.Subdivide();
 
             quadtree.Show(quadtreeTexture);
         }
