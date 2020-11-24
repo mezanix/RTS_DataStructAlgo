@@ -17,7 +17,7 @@ namespace FutureGames.Lab.QuadtreeSpace
             this.texture = texture;
         }
 
-        public Texture2D LaplacianMap()
+        public Texture2D LaplacianMapOnHue()
         {
             Texture2D r = new Texture2D(texture.width, texture.height, TextureFormat.RGB24, false);
             r.filterMode = FilterMode.Point;

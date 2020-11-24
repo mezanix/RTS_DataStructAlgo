@@ -91,6 +91,8 @@
     <Compile Include="Assets\Lib\Scripts\Extensions\ColorExtensions.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\LaplacianOnTexture.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\LaplacianOnTextureMono.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\QuadtreeTextureComp.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\QuadtreeTextureCompMono.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Lib\Scripts\FutureGames.Lib.asmdef" />

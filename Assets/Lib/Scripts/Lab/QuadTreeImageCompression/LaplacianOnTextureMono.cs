@@ -4,11 +4,10 @@ namespace FutureGames.Lab.QuadtreeSpace
 {
     public class LaplacianOnTextureMono : MonoBehaviour
     {
-        [SerializeField]
-        Texture2D texture = null;
+        public Texture2D texture = null;
 
         LaplacianOnTexture laplacian = null;
-        Texture2D laplacianMap = null;
+        public Texture2D laplacianMap = null;
 
         Renderer myRenderer = null;
         Renderer MyRenderer
@@ -25,7 +24,7 @@ namespace FutureGames.Lab.QuadtreeSpace
         {
             laplacian = new LaplacianOnTexture(texture);
 
-            laplacianMap = laplacian.LaplacianMap();
+            laplacianMap = laplacian.LaplacianMapOnHue();
 
             MyRenderer.material.mainTexture = laplacianMap;
         }
