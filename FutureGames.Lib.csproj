@@ -66,17 +66,21 @@
     <Compile Include="Assets\Lib\Scripts\Lab\BinaryTree\BinaryTreeNode.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LinkedList\IntLinkedListMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\HexaMaze\Scripts\MazeCellHexa.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\QuadtreeMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeDirections.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridCell2DMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeWall.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Point.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridCell2D.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeGenerator.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridConnected2DMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Extensions\CollectionsExtensions.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\QueueAndLinkedList.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Quadtree.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\HexaMaze\Scripts\MazeCellEdgeHexa.cs" />
     <Compile Include="Assets\Lib\Scripts\Extensions\TextureExtensions.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Fibonacci\Fibonacci.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Rectangle.cs" />
     <Compile Include="Assets\Lib\Scripts\Noise\PerlinNoise.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\HexaMaze\Scripts\MazeHexa.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeCell.cs" />
@@ -84,10 +88,9 @@
     <Compile Include="Assets\Lib\Scripts\Lab\LinkedList\IntLinkedListNode.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeCellEdge.cs" />
     <Compile Include="Assets\Lib\Scripts\Tests\TestPerlinNoise.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Point.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Rectangle.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Quadtree.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\QuadtreeMono.cs" />
+    <Compile Include="Assets\Lib\Scripts\Extensions\ColorExtensions.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\LaplacianOnTexture.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\LaplacianOnTextureMono.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Lib\Scripts\FutureGames.Lib.asmdef" />

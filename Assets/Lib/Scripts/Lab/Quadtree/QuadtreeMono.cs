@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using FutureGames.Lib;
 
 namespace FutureGames.Lab.QuadtreeSpace
 {

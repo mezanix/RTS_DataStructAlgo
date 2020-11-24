@@ -16,6 +16,8 @@ namespace FutureGames.Lab.QuadtreeSpace
         Quadtree southEast = null;
         Quadtree southWest = null;
 
+        List<Point> addedBeforeDivide = new List<Point>();
+
         public Quadtree(Rectangle boundary, int capacity)
         {
             this.boundary = boundary;
@@ -32,12 +34,14 @@ namespace FutureGames.Lab.QuadtreeSpace
             if (points.Count < capacity)
             {
                 points.Add(point);
+                addedBeforeDivide.Add(point);
                 return true;
             }
             else if (points.Count >= capacity)
             {
                 if (divided == false)
                 {
+                    points.Clear();
                     Subdivide();
                 }
 
@@ -57,8 +61,10 @@ namespace FutureGames.Lab.QuadtreeSpace
                 {
                     return true;
                 }
+                addedBeforeDivide.Clear();
             }
 
+            // error
             return false;
         }
 
