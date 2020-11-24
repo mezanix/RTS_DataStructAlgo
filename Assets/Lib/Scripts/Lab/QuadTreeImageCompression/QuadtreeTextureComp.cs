@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using System;
 
 namespace FutureGames.Lab.QuadtreeSpace
 {
-    public class QuadtreeTextureComp
+    public class QuadtreeTextureComp : IComparable
     {
-        Rectangle boundary = null;
+        public Rectangle boundary = null;
         bool divided = false;
 
         Texture2D map = null;
@@ -16,7 +18,7 @@ namespace FutureGames.Lab.QuadtreeSpace
 
         float maxCumulatedWhite = 0f;
 
-        const float relativeLimit = 0.01f;
+        const float relativeLimit = 0.1f;
 
         public QuadtreeTextureComp(Rectangle boundary, Texture2D map)
         {
@@ -125,6 +127,81 @@ namespace FutureGames.Lab.QuadtreeSpace
                     texture.SetPixel((int)x, (int)y, color);
                 }
             }
+        }
+    
+        public void LeafsCount(ref int count)
+        {
+            if (divided == true)
+            {
+                northEast.LeafsCount(ref count);
+                northWest.LeafsCount(ref count);
+                southWest.LeafsCount(ref count);
+                southEast.LeafsCount(ref count);
+            }
+            else if(divided == false)
+            {
+                count += 1;
+            }
+        }
+
+        public void GetLeafsBoundaries(List<Rectangle> rectangles)
+        {
+            if (divided == true)
+            {
+                northEast.GetLeafsBoundaries(rectangles);
+                northWest.GetLeafsBoundaries(rectangles);
+                southWest.GetLeafsBoundaries(rectangles);
+                southEast.GetLeafsBoundaries(rectangles);
+            }
+            else if (divided == false)
+            {
+                rectangles.Add(boundary);
+            }
+        }
+
+        public void GetLeafs(List<QuadtreeTextureComp> leafs)
+        {
+            if (divided == true)
+            {
+                northEast.GetLeafs(leafs);
+                northWest.GetLeafs(leafs);
+                southWest.GetLeafs(leafs);
+                southEast.GetLeafs(leafs);
+            }
+            else if (divided == false)
+            {
+                leafs.Add(this);
+            }
+        }
+
+        public int CompareTo(object obj)
+        {
+            QuadtreeTextureComp other = obj as QuadtreeTextureComp;
+
+            if (boundary.DoubleWidth < other.boundary.DoubleWidth)
+                return -1;
+            else if (boundary.DoubleWidth > other.boundary.DoubleWidth)
+                return 1;
+            else
+                return 0;
+        }
+    
+        public Vector2 SmallestSize()
+        {
+            List<QuadtreeTextureComp> leafs = new List<QuadtreeTextureComp>();
+            GetLeafs(leafs);
+            Debug.Log("leafs: " + leafs.Count);
+
+            leafs.Sort();
+            return new Vector2(leafs[0].boundary.DoubleWidth, leafs[0].boundary.DoubleHeight);
+        }
+
+        public Vector2Int CompressedTextureSize()
+        {
+            Vector2 smallestSize = SmallestSize();
+
+            int width = map.width / (int)smallestSize.x;
+            return new Vector2Int(width, (int)(((float)map.height / (float)map.width) * width));
         }
     }
 }

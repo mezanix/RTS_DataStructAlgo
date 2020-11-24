@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FutureGames.Lab.QuadtreeSpace
@@ -53,6 +54,8 @@ namespace FutureGames.Lab.QuadtreeSpace
             Subdivide();
 
             quadtreeTexture.Apply();
+
+            Debug.Log("Compressed texture Size: " + quadtree.CompressedTextureSize());
         }
 
         private void Subdivide()
