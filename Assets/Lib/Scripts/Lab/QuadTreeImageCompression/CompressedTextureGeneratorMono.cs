@@ -13,6 +13,7 @@ namespace FutureGames.Lab.QuadtreeSpace
         QuadtreeTextureCompression Quadtree => QuadtreeTextureCompressionMono.quadtree;
         Texture2D SourceImage => QuadtreeTextureCompressionMono.SourceImage;
         Texture2D debugTexture = null;
+        Texture2D compressedTexture = null;
 
         CompressedTextureGenerator compressedGen = null;
 
@@ -39,13 +40,7 @@ namespace FutureGames.Lab.QuadtreeSpace
 
             compressedGen = new CompressedTextureGenerator(Quadtree, SourceImage);
 
-            debugTexture = new Texture2D(SourceImage.width, SourceImage.height, TextureFormat.RGB24, false);
-            debugTexture.filterMode = FilterMode.Point;
-            compressedGen.Generate(debugTexture);
-
-            MyRenderer.material.mainTexture = debugTexture;
-
-            debugTexture.Apply();
+            compressedGen.Generate(compressedTexture, MyRenderer);
         }
     }
 }

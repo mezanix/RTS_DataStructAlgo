@@ -14,9 +14,23 @@ namespace FutureGames.Lab.QuadtreeSpace
             this.sourceImage = sourceImage;
         }
 
-        public void Generate(Texture2D texture)
+        public void Generate(Texture2D texture, Renderer renderer)
         {
-            DebugQuads(texture);
+            Vector2Int compressedSize = quadtree.CompressedTextureSize();
+            texture = new Texture2D(compressedSize.x, compressedSize.y, TextureFormat.RGB24, false);
+            texture.filterMode = FilterMode.Point;
+
+
+            renderer.material.mainTexture = texture;
+
+            Colorize(texture);
+
+            texture.Apply();
+        }
+
+        private void Colorize(Texture2D texture)
+        {
+            quadtree.Colorize(texture);
         }
 
         private void DebugQuads(Texture2D texture)

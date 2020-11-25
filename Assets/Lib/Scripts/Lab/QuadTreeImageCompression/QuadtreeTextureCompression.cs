@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using FutureGames.Lib;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace FutureGames.Lab.QuadtreeSpace
 {
@@ -9,7 +10,7 @@ namespace FutureGames.Lab.QuadtreeSpace
         public Rectangle boundary = null;
         bool divided = false;
 
-        Texture2D map = null; 
+        Texture2D map = null;
         Texture2D sourceImage = null;
 
         QuadtreeTextureCompression northEast = null;
@@ -19,7 +20,7 @@ namespace FutureGames.Lab.QuadtreeSpace
 
         float maxCumulatedWhite = 0f;
 
-        const float relativeLimit = 0.01f;
+        const float relativeLimit = 0.1f;
 
         public QuadtreeTextureCompression(Rectangle boundary, Texture2D map, Texture2D sourceImage)
         {
@@ -30,6 +31,31 @@ namespace FutureGames.Lab.QuadtreeSpace
             maxCumulatedWhite = MaxCumulatedWhite(map);
 
             //Debug.Log(this);
+        }
+
+        public void Colorize(Texture2D texture)
+        {
+            List<QuadtreeTextureCompression> leafs = new List<QuadtreeTextureCompression>();
+            GetLeafs(leafs);
+
+
+            for (int y = 0; y < texture.height; y++)
+            {
+                for (int x = 0; x < texture.width; x++)
+                {
+                    Vector2 uv = texture.PixelPositionToUv(x, y);
+                    Vector2Int positionInSource = sourceImage.UvToPixelPosition(uv.x, uv.y);
+                    for (int i = 0; i < leafs.Count; i++)
+                    {
+                        if (leafs[i].boundary.Contains(new Point((float)positionInSource.x, (float)positionInSource.y)) == false)
+                            continue;
+
+                        texture.SetPixel(x, y,
+                            leafs[i].GetDominantColorFromSource(positionInSource.x, positionInSource.y));
+
+                    }
+                }
+            }
         }
 
         public override string ToString()
@@ -100,7 +126,7 @@ namespace FutureGames.Lab.QuadtreeSpace
             float r = 0f;
             for (float y = boundary.South; y < boundary.North; y += 1f)
             {
-                for (float x = boundary.West; x < boundary.East; x+= 1f)
+                for (float x = boundary.West; x < boundary.East; x += 1f)
                 {
                     r += texture.GetPixel((int)x, (int)y).r;
                 }
@@ -110,7 +136,7 @@ namespace FutureGames.Lab.QuadtreeSpace
         float MaxCumulatedWhite(Texture2D texture)
         {
             float r = 0f;
-            for (int y = 0; y < texture.height; y ++)
+            for (int y = 0; y < texture.height; y++)
             {
                 for (int x = 0; x < texture.width; x++)
                 {
@@ -130,7 +156,7 @@ namespace FutureGames.Lab.QuadtreeSpace
                 }
             }
         }
-    
+
         public void PaintUsingDominantColor(Texture2D texture)
         {
             List<QuadtreeTextureCompression> leafs = new List<QuadtreeTextureCompression>();
@@ -151,7 +177,7 @@ namespace FutureGames.Lab.QuadtreeSpace
                 southWest.LeafsCount(ref count);
                 southEast.LeafsCount(ref count);
             }
-            else if(divided == false)
+            else if (divided == false)
             {
                 count += 1;
             }
@@ -207,6 +233,17 @@ namespace FutureGames.Lab.QuadtreeSpace
             return sourceImage.GetPixel((int)boundary.centerX, (int)boundary.centerY);
         }
 
+        private Color GetDominantColorFromSource(int x, int y)
+        {
+            //Debug.Log(" " + x + " " + y);
+            //Debug.Log(" " + (float)x + " " + (float)y);
+            //Debug.Log(boundary.centerX);
+            if (boundary.Contains(new Point((float)x, (float)y)) == false)
+                return Color.magenta;
+
+            return GetDominantColorFromSource();
+        }
+
         public int CompareTo(object obj)
         {
             QuadtreeTextureCompression other = obj as QuadtreeTextureCompression;
@@ -218,7 +255,7 @@ namespace FutureGames.Lab.QuadtreeSpace
             else
                 return 0;
         }
-    
+
         public Vector2 SmallestSize()
         {
             List<QuadtreeTextureCompression> leafs = new List<QuadtreeTextureCompression>();
@@ -242,7 +279,7 @@ namespace FutureGames.Lab.QuadtreeSpace
     {
         public QuadtreeTextureCompression quadtree = null;
         public Color color = Color.black;
-        
+
         public QuadtreeTextureCompressionAndColor(QuadtreeTextureCompression quadtree, Color color)
         {
             this.quadtree = quadtree;
