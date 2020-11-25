@@ -2,8 +2,8 @@
 {
     public class Rectangle
     {
-        float centerX = 0f;
-        float centerY = 0f;
+        public float centerX = 0f;
+        public float centerY = 0f;
 
         float width = 0f;
         float height = 0f;
