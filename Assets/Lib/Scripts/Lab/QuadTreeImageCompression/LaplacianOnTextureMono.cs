@@ -24,7 +24,7 @@ namespace FutureGames.Lab.QuadtreeSpace
         {
             laplacian = new LaplacianOnTexture(texture);
 
-            laplacianMap = laplacian.LaplacianMapOnHue();
+            laplacianMap = laplacian.LaplacianMapOnHSV();
 
             MyRenderer.material.mainTexture = laplacianMap;
         }

@@ -20,7 +20,7 @@ namespace FutureGames.Lab.QuadtreeSpace
 
         float maxCumulatedWhite = 0f;
 
-        const float relativeLimit = 0.01f;
+        const float relativeLimit = 0.001f;
 
         public QuadtreeTextureCompression(Rectangle boundary, Texture2D map, Texture2D sourceImage)
         {
@@ -33,6 +33,10 @@ namespace FutureGames.Lab.QuadtreeSpace
             //Debug.Log(this);
         }
 
+        /// <summary>
+        /// Take colors from the source image and apply them throu the quadtree leafs to the compressed texture
+        /// </summary>
+        /// <param name="texture"></param>
         public void Colorize(Texture2D texture)
         {
             List<QuadtreeTextureCompression> leafs = new List<QuadtreeTextureCompression>();
@@ -43,20 +47,13 @@ namespace FutureGames.Lab.QuadtreeSpace
                 for (int x = 0; x < texture.width; x++)
                 {
                     Vector2 uv = texture.PixelPositionToUv(x, y);
-                    //Debug.Log("uv: " + uv);
+
                     Vector2Int positionInSource = sourceImage.UvToPixelPosition(uv.x, uv.y);
-                    //Debug.Log("positionInSource: " + positionInSource);
-                    //Debug.Log("positionInSource float x: " + (float)positionInSource.x + " " + "positionInSource float y: " + (float)positionInSource.y);
+
                     for (int i = 0; i < leafs.Count; i++)
                     {
                         if (leafs[i].boundary.Contains(new Point((float)positionInSource.x, (float)positionInSource.y)) == false)
-                        {
-                            //if (leafs[i].boundary.InsideX((float)positionInSource.x) == false)
-                            //    texture.SetPixel(0, y, leafs[i].GetDominantColorFromSource());
-                            //if (leafs[i].boundary.InsideY((float)positionInSource.y) == false)
-                            //    texture.SetPixel(x, 0, leafs[i].GetDominantColorFromSource());
                             continue;
-                        }
 
                         texture.SetPixel(x, y, leafs[i].GetDominantColorFromSource());
                         break;
@@ -237,7 +234,17 @@ namespace FutureGames.Lab.QuadtreeSpace
 
         private Color GetDominantColorFromSource()
         {
-            return sourceImage.GetPixel((int)boundary.centerX, (int)boundary.centerY);
+            Color[] colors =
+                sourceImage.GetPixels((int)boundary.West, (int)boundary.South, (int)boundary.DoubleWidth, (int)boundary.DoubleHeight);
+
+            Vector3 hsvAverage = new Vector3(
+                TextureExtensions.HueAverage(colors),
+                TextureExtensions.SaturationAverage(colors),
+                TextureExtensions.ValueAverage(colors));
+
+            return Color.HSVToRGB(hsvAverage.x, hsvAverage.y, hsvAverage.z);
+
+            //return sourceImage.GetPixel((int)boundary.centerX, (int)boundary.centerY);
         }
 
         private Color GetDominantColorFromSource(int x, int y)
