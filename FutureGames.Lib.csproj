@@ -70,6 +70,7 @@
     <Compile Include="Assets\Lib\Scripts\Extensions\ColorExtensions.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LinkedList\IntLinkedListMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\HexaMaze\Scripts\MazeCellHexa.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\CompressedTextureGenerator.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\QuadtreeMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeDirections.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridCell2DMono.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\HexaMaze\Scripts\MazeCellEdgeHexa.cs" />
     <Compile Include="Assets\Lib\Scripts\Extensions\TextureExtensions.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\QuadtreeTextureCompressionMono.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\CompressedTextureGeneratorMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Fibonacci\Fibonacci.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Rectangle.cs" />
     <Compile Include="Assets\Lib\Scripts\Noise\PerlinNoise.cs" />
@@ -93,8 +95,8 @@
     <Compile Include="Assets\Lib\Scripts\Lab\LinkedList\IntLinkedListNode.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeCellEdge.cs" />
     <Compile Include="Assets\Lib\Scripts\Tests\TestPerlinNoise.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\CompressedTextureGenerator.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\CompressedTextureGeneratorMono.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelGrid.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelMap.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Lib\Scripts\FutureGames.Lib.asmdef" />
