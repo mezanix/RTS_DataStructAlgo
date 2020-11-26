@@ -20,7 +20,7 @@ namespace FutureGames.Lab.QuadtreeSpace
 
         float maxCumulatedWhite = 0f;
 
-        const float relativeLimit = 0.1f;
+        const float relativeLimit = 0.01f;
 
         public QuadtreeTextureCompression(Rectangle boundary, Texture2D map, Texture2D sourceImage)
         {
@@ -38,21 +38,28 @@ namespace FutureGames.Lab.QuadtreeSpace
             List<QuadtreeTextureCompression> leafs = new List<QuadtreeTextureCompression>();
             GetLeafs(leafs);
 
-
             for (int y = 0; y < texture.height; y++)
             {
                 for (int x = 0; x < texture.width; x++)
                 {
                     Vector2 uv = texture.PixelPositionToUv(x, y);
+                    //Debug.Log("uv: " + uv);
                     Vector2Int positionInSource = sourceImage.UvToPixelPosition(uv.x, uv.y);
+                    //Debug.Log("positionInSource: " + positionInSource);
+                    //Debug.Log("positionInSource float x: " + (float)positionInSource.x + " " + "positionInSource float y: " + (float)positionInSource.y);
                     for (int i = 0; i < leafs.Count; i++)
                     {
                         if (leafs[i].boundary.Contains(new Point((float)positionInSource.x, (float)positionInSource.y)) == false)
+                        {
+                            //if (leafs[i].boundary.InsideX((float)positionInSource.x) == false)
+                            //    texture.SetPixel(0, y, leafs[i].GetDominantColorFromSource());
+                            //if (leafs[i].boundary.InsideY((float)positionInSource.y) == false)
+                            //    texture.SetPixel(x, 0, leafs[i].GetDominantColorFromSource());
                             continue;
+                        }
 
-                        texture.SetPixel(x, y,
-                            leafs[i].GetDominantColorFromSource(positionInSource.x, positionInSource.y));
-
+                        texture.SetPixel(x, y, leafs[i].GetDominantColorFromSource());
+                        break;
                     }
                 }
             }

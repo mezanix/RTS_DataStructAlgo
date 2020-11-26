@@ -46,14 +46,14 @@
             return InsideX(point.x) && InsideY(point.y);
         }
 
-        private bool InsideX(float x)
+        public bool InsideX(float x)
         {
-            return x > West && x < East;
+            return x >= West && x <= East;
         }
 
-        private bool InsideY(float y)
+        public bool InsideY(float y)
         {
-            return y > South && y < North;
+            return y >= South && y <= North;
         }
     }
 }
