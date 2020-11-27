@@ -58,6 +58,7 @@
     <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridConnected2D.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\LaplacianOnTextureMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\HexaMaze\Scripts\MazePassageHexa.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelGrid.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Fibonacci\ArithmetiqueSerie.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\Maze.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\HexaMaze\Scripts\MazeWallHexa.cs" />
@@ -94,9 +95,9 @@
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazePassage.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LinkedList\IntLinkedListNode.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeCellEdge.cs" />
-    <Compile Include="Assets\Lib\Scripts\Tests\TestPerlinNoise.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelGrid.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelMap.cs" />
+    <Compile Include="Assets\Lib\Scripts\Tests\TestPerlinNoise.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelStencile.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Lib\Scripts\FutureGames.Lib.asmdef" />

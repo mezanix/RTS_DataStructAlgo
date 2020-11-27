@@ -19,6 +19,12 @@ namespace FutureGames.Lab
         float voxelSize = 1f;
         float halfSize = 1f;
 
+        string[] filledTypeNames = new string[] { "Filled", "Empty" };
+        int filledTypeIndex = 0;
+
+        string[] radiusNames = new string[] { "0", "1", "2", "3", "4", "5", "6" };
+        int radiusIndex = 0;
+
         private void Awake()
         {
             BoxCollider collider = gameObject.AddComponent<BoxCollider>();
@@ -26,13 +32,13 @@ namespace FutureGames.Lab
 
             halfSize = size * 0.5f;
             chunkSize = size / chunkResolution;
-            voxelSize = chunkSize / chunkResolution;
+            voxelSize = chunkSize / voxelResolution;
 
             chunks = new VoxelGrid[chunkResolution * chunkResolution];
 
-            for (int x = 0, i = 0; x < chunkResolution; x++)
+            for (int y = 0, i = 0; y < chunkResolution; y++)
             {
-                for (int y = 0; y < chunkResolution; y++, i++)
+                for (int x = 0; x < chunkResolution; x++, i++)
                 {
                     CreateChunk(i, x, y);
                 }
@@ -58,13 +64,49 @@ namespace FutureGames.Lab
 
         private void EditVoxels(Vector3 point)
         {
-            int voxelX = (int)((point.x + halfSize) / voxelSize);
-            int voxelY = (int)((point.y + halfSize) / voxelSize);
+            int centerX = (int)((point.x + halfSize) / voxelSize);
+            int centerY = (int)((point.y + halfSize) / voxelSize);
 
-            int chunkX = voxelX / voxelResolution;
-            int chunkY = voxelY / voxelResolution;
+            int chunkX = centerX / voxelResolution;
+            int chunkY = centerY / voxelResolution;
 
-            Debug.Log(voxelX + " " + voxelY + " in " + chunkX + " " + chunkY);
+            centerX -= chunkX * voxelResolution;
+            centerY -= chunkY * voxelResolution;
+
+            int xStart = (centerX - radiusIndex) / voxelResolution;
+            xStart = xStart < 0 ? 0 : xStart;
+
+            int xEnd = (centerX + radiusIndex) / voxelResolution;
+            xEnd = xEnd > chunkResolution - 1 ? chunkResolution - 1 : xEnd;
+
+            int yStart = (centerY - radiusIndex) / voxelResolution;
+            yStart = yStart < 0 ? 0 : yStart;
+
+            int yEnd = (centerY + radiusIndex) / voxelResolution;
+            yEnd = yEnd > chunkResolution - 1 ? chunkResolution - 1 : yEnd;
+
+            VoxelStencile activeStencile = new VoxelStencile();
+            activeStencile.Init(filledTypeIndex == 0, radiusIndex, voxelResolution);
+
+            int voxelYOffset = yStart * voxelResolution;
+            for (int y = yStart; y < yEnd; y++)
+            {
+                int i = y * chunkResolution + xStart;
+                int voxelXOffset = xStart * voxelResolution;
+                for (int x = xStart; x < xEnd; x++, i++)
+                {
+
+                    activeStencile.SetCenter(centerX-voxelXOffset, centerY-voxelYOffset);
+
+                    chunks[i].Apply(activeStencile);
+
+                    voxelXOffset += voxelResolution;
+                }
+                voxelYOffset += voxelResolution;
+            }
+
+
+            //Debug.Log(voxelX + " " + voxelY + " in " + chunkX + " " + chunkY);
         }
 
         private void CreateChunk(int i, int x, int y)
@@ -77,6 +119,22 @@ namespace FutureGames.Lab
                 y * chunkSize - halfSize,
                 0f);
             chunks[i] = chunk;
+        }
+
+        private void OnGUI()
+        {
+            //GUI.Label()
+            GUILayout.BeginArea(new Rect(4f, 4f, 150f, 500f));
+
+            GUILayout.Label("Fill type");
+            filledTypeIndex = GUILayout.SelectionGrid(
+                filledTypeIndex, filledTypeNames, filledTypeNames.Length);
+
+            GUILayout.Label("Radius");
+            radiusIndex = GUILayout.SelectionGrid(
+                radiusIndex, radiusNames, radiusNames.Length);
+
+            GUILayout.EndArea();
         }
     }
 }

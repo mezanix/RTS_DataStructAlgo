@@ -45,3 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resolution: 8
   voxelPrefab: {fileID: 3700236641711662347, guid: 28b013b33a1178e4988a034f893c7074, type: 3}
+  voxelMaterials:
+  - {fileID: 2100000, guid: f9ce079335df07a48ad6ffc6fd4735b1, type: 2}
+  - {fileID: 2100000, guid: 80d40d2dc6b856f42a72b6ef87dc1fcc, type: 2}

@@ -1,0 +1,9 @@
+path finding
+
+binary tree
+
+quadtree important
+
+Bonus:
+marching square,
+Hexadecimal encoding
