@@ -67,11 +67,11 @@ namespace FutureGames.Lab
             int centerX = (int)((point.x + halfSize) / voxelSize);
             int centerY = (int)((point.y + halfSize) / voxelSize);
 
-            int chunkX = centerX / voxelResolution;
-            int chunkY = centerY / voxelResolution;
+            //int chunkX = centerX / voxelResolution;
+            //int chunkY = centerY / voxelResolution;
 
-            centerX -= chunkX * voxelResolution;
-            centerY -= chunkY * voxelResolution;
+            //centerX -= chunkX * voxelResolution;
+            //centerY -= chunkY * voxelResolution;
 
             int xStart = (centerX - radiusIndex) / voxelResolution;
             xStart = xStart < 0 ? 0 : xStart;
@@ -89,15 +89,14 @@ namespace FutureGames.Lab
             activeStencile.Init(filledTypeIndex == 0, radiusIndex, voxelResolution);
 
             int voxelYOffset = yStart * voxelResolution;
-            for (int y = yStart; y < yEnd; y++)
+            for (int y = yStart; y <= yEnd; y++)
             {
                 int i = y * chunkResolution + xStart;
                 int voxelXOffset = xStart * voxelResolution;
-                for (int x = xStart; x < xEnd; x++, i++)
+                for (int x = xStart; x <= xEnd; x++, i++)
                 {
 
                     activeStencile.SetCenter(centerX-voxelXOffset, centerY-voxelYOffset);
-
                     chunks[i].Apply(activeStencile);
 
                     voxelXOffset += voxelResolution;
