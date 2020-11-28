@@ -25,6 +25,15 @@ namespace FutureGames.Lab
         string[] radiusNames = new string[] { "0", "1", "2", "3", "4", "5", "6" };
         int radiusIndex = 0;
 
+        string[] stencilNames = new string[] { "Square", "Circle" };
+        int stencileIndex = 0;
+
+        VoxelStencile[] stenciles = new VoxelStencile[]
+        {
+            new VoxelStencile(),
+            new VoxelStencileCircle()
+        };
+
         private void Awake()
         {
             BoxCollider collider = gameObject.AddComponent<BoxCollider>();
@@ -85,7 +94,7 @@ namespace FutureGames.Lab
             int yEnd = (centerY + radiusIndex) / voxelResolution;
             yEnd = yEnd > chunkResolution - 1 ? chunkResolution - 1 : yEnd;
 
-            VoxelStencile activeStencile = new VoxelStencile();
+            VoxelStencile activeStencile = stenciles[stencileIndex];
             activeStencile.Init(filledTypeIndex == 0, radiusIndex, voxelResolution);
 
             int voxelYOffset = yStart * voxelResolution;
@@ -132,6 +141,10 @@ namespace FutureGames.Lab
             GUILayout.Label("Radius");
             radiusIndex = GUILayout.SelectionGrid(
                 radiusIndex, radiusNames, radiusNames.Length);
+
+            GUILayout.Label("Stencil");
+            stencileIndex = GUILayout.SelectionGrid(
+                stencileIndex, stencilNames, stencilNames.Length);
 
             GUILayout.EndArea();
         }

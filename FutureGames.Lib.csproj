@@ -76,6 +76,7 @@
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeDirections.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridCell2DMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeWall.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelStencile.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Point.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\GridCell2D.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeGenerator.cs" />
@@ -97,7 +98,7 @@
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeCellEdge.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelMap.cs" />
     <Compile Include="Assets\Lib\Scripts\Tests\TestPerlinNoise.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelStencile.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelStencileCircle.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Lib\Scripts\FutureGames.Lib.asmdef" />

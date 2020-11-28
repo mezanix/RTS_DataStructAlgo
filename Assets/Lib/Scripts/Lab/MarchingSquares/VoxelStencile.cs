@@ -2,11 +2,11 @@
 {
     public class VoxelStencile
     {
-        bool fillType = false;
+        protected bool fillType = false;
 
-        int radius = 1;
-        int centerX = 0;
-        int centerY = 0;
+        protected int radius = 1;
+        protected int centerX = 0;
+        protected int centerY = 0;
 
         int globalResolution = 8;
 
@@ -45,7 +45,7 @@
             }
         }
 
-        public void Init(bool fillType, int radius, int globalResolution)
+        public virtual void Init(bool fillType, int radius, int globalResolution)
         {
             this.fillType = fillType;
             this.radius = radius;
@@ -53,12 +53,12 @@
             this.globalResolution = globalResolution;
         }
 
-        public bool Apply(int x, int y)
+        public virtual bool Apply(int x, int y, bool voxel)
         {
             return fillType;
         }
 
-        public void SetCenter(int x, int y)
+        public virtual void SetCenter(int x, int y)
         {
             centerX = x;
             centerY = y;

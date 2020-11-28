@@ -57,7 +57,7 @@ namespace FutureGames.Lab
                 int i = y * resolution + stencile.xStart;
                 for (int x = stencile.xStart; x <= stencile.xEnd; x++, i++)
                 {
-                    voxels[i] = stencile.Apply(x, y);
+                    voxels[i] = stencile.Apply(x, y, voxels[i]);
                 }
             }
 
