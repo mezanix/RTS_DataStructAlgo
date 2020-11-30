@@ -12,6 +12,11 @@ namespace FutureGames.Lab
         public GameObject voxelPrefab = null;
 
         float voxelSize = 0.1f;
+        float gridSize = 1f;
+
+        Voxel dummy_x = null;
+        Voxel dummy_y = null;
+        Voxel dummy_t = null;
 
         Material[] voxelMaterials = new Material[0];
 
@@ -19,13 +24,22 @@ namespace FutureGames.Lab
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
 
+        public VoxelGrid x_neib = null;
+        public VoxelGrid y_neib = null;
+        public VoxelGrid xy_neib = null;
+
         public void Init(int resolution, float size)
         {
             this.resolution = resolution;
+            gridSize = size;
             voxelSize = size / resolution;
 
             voxels = new Voxel[resolution * resolution];
             voxelMaterials = new Material[voxels.Length];
+
+            dummy_t = new Voxel();
+            dummy_x = new Voxel();
+            dummy_y = new Voxel();
 
             for (int y = 0, i = 0; y < resolution; y++)
             {
@@ -55,7 +69,13 @@ namespace FutureGames.Lab
             triangles.Clear();
             mesh.Clear();
 
+            if(x_neib != null)
+            {
+                dummy_x.Become_X_DummyOf(x_neib.voxels[0], gridSize);
+            }
             TriangulateCellRows();
+            if (y_neib != null)
+                TriangulateGapRow();
 
             mesh.vertices = vertices.ToArray();
             mesh.triangles = triangles.ToArray();
@@ -74,6 +94,46 @@ namespace FutureGames.Lab
                         voxels[i+resolution],
                         voxels[i+resolution+1]);
                 }
+                if(x_neib != null)
+                {
+                    triangulateGapCell(i);
+                }
+            }
+        }
+
+        private void triangulateGapCell(int i)
+        {
+            Voxel dummySwap = dummy_t;
+            dummySwap.Become_X_DummyOf(x_neib.voxels[i + 1], gridSize);
+
+            dummy_t = dummy_x;
+            dummy_x = dummySwap;
+
+            TriangulateCell(voxels[i], dummy_t, voxels[i + resolution], dummy_x);
+        }
+
+        void TriangulateGapRow()
+        {
+            dummy_y.Become_Y_DummyOf(y_neib.voxels[0], gridSize);
+            int cells = resolution - 1;
+            int offset = cells * resolution;
+
+            for (int x = 0; x < cells; x++)
+            {
+                Voxel dummySwap = dummy_t;
+                dummySwap.Become_Y_DummyOf(y_neib.voxels[x + 1], gridSize);
+
+                dummy_t = dummy_y;
+                dummy_y = dummySwap;
+
+                TriangulateCell(voxels[x + offset], voxels[x + offset + 1], dummy_t, dummy_y);
+            }
+
+            if(x_neib != null)
+            {
+                dummy_t.Become_XY_DummyOf(xy_neib.voxels[0], gridSize);
+
+                TriangulateCell(voxels[voxels.Length - 1], dummy_x, dummy_y, dummy_t);
             }
         }
 

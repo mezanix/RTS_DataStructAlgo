@@ -82,13 +82,13 @@ namespace FutureGames.Lab
             //centerX -= chunkX * voxelResolution;
             //centerY -= chunkY * voxelResolution;
 
-            int xStart = (centerX - radiusIndex) / voxelResolution;
+            int xStart = (centerX - radiusIndex - 1) / voxelResolution;
             xStart = xStart < 0 ? 0 : xStart;
 
             int xEnd = (centerX + radiusIndex) / voxelResolution;
             xEnd = xEnd > chunkResolution - 1 ? chunkResolution - 1 : xEnd;
 
-            int yStart = (centerY - radiusIndex) / voxelResolution;
+            int yStart = (centerY - radiusIndex - 1) / voxelResolution;
             yStart = yStart < 0 ? 0 : yStart;
 
             int yEnd = (centerY + radiusIndex) / voxelResolution;
@@ -97,20 +97,22 @@ namespace FutureGames.Lab
             VoxelStencile activeStencile = stenciles[stencileIndex];
             activeStencile.Init(filledTypeIndex == 0, radiusIndex, voxelResolution);
 
-            int voxelYOffset = yStart * voxelResolution;
-            for (int y = yStart; y <= yEnd; y++)
+            int voxelYOffset = yEnd * voxelResolution;
+            for (int y = yEnd; y >= yStart; y--)
             {
-                int i = y * chunkResolution + xStart;
-                int voxelXOffset = xStart * voxelResolution;
-                for (int x = xStart; x <= xEnd; x++, i++)
+                int i = y * chunkResolution + xEnd;
+                
+                int voxelXOffset = xEnd * voxelResolution;
+
+                for (int x = xEnd; x >= xStart; x--, i--)
                 {
 
                     activeStencile.SetCenter(centerX-voxelXOffset, centerY-voxelYOffset);
                     chunks[i].Apply(activeStencile);
 
-                    voxelXOffset += voxelResolution;
+                    voxelXOffset -= voxelResolution;
                 }
-                voxelYOffset += voxelResolution;
+                voxelYOffset -= voxelResolution;
             }
 
 
@@ -127,6 +129,19 @@ namespace FutureGames.Lab
                 y * chunkSize - halfSize,
                 0f);
             chunks[i] = chunk;
+
+            if(x > 0)
+            {
+                chunks[i - 1].x_neib = chunk;
+            }
+            if(y>0)
+            {
+                chunks[i - chunkResolution].y_neib = chunk;
+                if(x > 0)
+                {
+                    chunks[i - 1 - chunkResolution].xy_neib = chunk;
+                }
+            }
         }
 
         private void OnGUI()
