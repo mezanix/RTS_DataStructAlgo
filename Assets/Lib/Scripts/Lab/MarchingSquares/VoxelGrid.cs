@@ -88,10 +88,130 @@ namespace FutureGames.Lab
                 cellType |= 4;
             if (d.state)
                 cellType |= 8;
+
+            switch(cellType)
+            {
+                case 0:
+                    return;
+
+                case 1:
+                    Addtriangle(a.position, a.y_edgePosition, a.x_edgePosition);
+                    break;
+
+                case 2:
+                    Addtriangle(b.position, a.x_edgePosition, b.y_edgePosition);
+                    break;
+
+                case 4:
+                    Addtriangle(a.y_edgePosition, c.position, c.x_edgePosition);
+                    break;
+
+                case 8:
+                    Addtriangle(c.x_edgePosition, d.position, b.y_edgePosition);
+                    break;
+
+                case 3:
+                    AddQuad(a.position, a.y_edgePosition, b.y_edgePosition, b.position);
+                    break;
+
+                case 5:
+                    AddQuad(a.position, c.position, c.x_edgePosition, a.x_edgePosition);
+                    break;
+
+                case 10:
+                    AddQuad(c.x_edgePosition, d.position, b.position, a.x_edgePosition);
+                    break;
+
+                case 12:
+                    AddQuad(a.y_edgePosition, c.position, d.position, b.y_edgePosition);
+                    break;
+
+                case 15:
+                    AddQuad(a.position, c.position, d.position, b.position);
+                    break;
+
+                case 7:
+                    AddPentagon(a.position, c.position, c.x_edgePosition, b.y_edgePosition, b.position);
+                    break;
+
+                case 11:
+                    AddPentagon(b.position, a.position, a.y_edgePosition, c.x_edgePosition, d.position);
+                    break;
+
+                case 13:
+                    AddPentagon(c.position, d.position, b.y_edgePosition, a.x_edgePosition, a.position);
+                    break;
+
+                case 14:
+                    AddPentagon(d.position, b.position, a.x_edgePosition, a.y_edgePosition, c.position);
+                    break;
+
+                case 6:
+                    Addtriangle(b.position, a.x_edgePosition, b.y_edgePosition);
+                    Addtriangle(c.position, c.x_edgePosition, a.y_edgePosition);
+                    break;
+
+                case 9:
+                    Addtriangle(a.position, a.y_edgePosition, a.x_edgePosition);
+                    Addtriangle(d.position, b.y_edgePosition, c.x_edgePosition);
+                    break;
+            }
+        }
+
+        private void AddPentagon(Vector3 v0, Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4)
+        {
+            int vertexIndex = vertices.Count;
+            vertices.Add(v0);
+            vertices.Add(v1);
+            vertices.Add(v2);
+            vertices.Add(v3);
+            vertices.Add(v4);
+
+            triangles.Add(vertexIndex);
+            triangles.Add(vertexIndex + 1);
+            triangles.Add(vertexIndex + 2);
+
+            triangles.Add(vertexIndex);
+            triangles.Add(vertexIndex + 2);
+            triangles.Add(vertexIndex + 3);
+
+            triangles.Add(vertexIndex);
+            triangles.Add(vertexIndex + 3);
+            triangles.Add(vertexIndex + 4);
+        }
+
+        private void AddQuad(Vector3 v0, Vector3 v1, Vector3 v2, Vector3 v3)
+        {
+            int vertexIndex = vertices.Count;
+            vertices.Add(v0);
+            vertices.Add(v1);
+            vertices.Add(v2);
+            vertices.Add(v3);
+
+            triangles.Add(vertexIndex);
+            triangles.Add(vertexIndex + 1);
+            triangles.Add(vertexIndex + 2);
+
+            triangles.Add(vertexIndex);
+            triangles.Add(vertexIndex + 2);
+            triangles.Add(vertexIndex + 3);
+        }
+
+        private void Addtriangle(Vector3 v_0, Vector3 v_1, Vector3 v_2)
+        {
+            int vertexIndex = vertices.Count;
+            vertices.Add(v_0);
+            vertices.Add(v_1);
+            vertices.Add(v_2);
+
+            triangles.Add(vertexIndex);
+            triangles.Add(vertexIndex + 1);
+            triangles.Add(vertexIndex + 2);
         }
 
         private void SetVoxelColors()
         {
+            Debug.Log(voxelMaterials.Length);
             for (int i = 0; i < voxels.Length; i++)
             {
                 voxelMaterials[i].color = voxels[i].state ? Color.black : Color.white;
@@ -106,6 +226,8 @@ namespace FutureGames.Lab
             go.transform.localScale = Vector3.one * voxelSize * 0.1f;
 
             voxelMaterials[i] = go.GetComponent<MeshRenderer>().material;
+
+            voxels[i] = new Voxel(x, y, voxelSize);
         }
 
         public void Apply(VoxelStencile stencile)
