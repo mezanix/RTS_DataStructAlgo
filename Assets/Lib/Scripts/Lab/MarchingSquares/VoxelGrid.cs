@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FutureGames.Lab
@@ -6,7 +7,7 @@ namespace FutureGames.Lab
     public class VoxelGrid : MonoBehaviour
     {
         public int resolution = 8;
-        bool[] voxels = new bool[0];
+        Voxel[] voxels = new Voxel[0];
 
         public GameObject voxelPrefab = null;
 
@@ -14,12 +15,16 @@ namespace FutureGames.Lab
 
         Material[] voxelMaterials = new Material[0];
 
+        Mesh mesh = null;
+        List<Vector3> vertices = new List<Vector3>();
+        List<int> triangles = new List<int>();
+
         public void Init(int resolution, float size)
         {
             this.resolution = resolution;
             voxelSize = size / resolution;
 
-            voxels = new bool[resolution * resolution];
+            voxels = new Voxel[resolution * resolution];
             voxelMaterials = new Material[voxels.Length];
 
             for (int y = 0, i = 0; y < resolution; y++)
@@ -29,14 +34,67 @@ namespace FutureGames.Lab
                     CreateVoxel(i, x, y);
                 }
             }
+
+            GetComponent<MeshFilter>().mesh = mesh = new Mesh();
+            mesh.name = "VoxelGrid Mesh";
+            vertices = new List<Vector3>();
+            triangles = new List<int>();
+
+            Refresh();
+        }
+
+        private void Refresh()
+        {
             SetVoxelColors();
+            Triangulate();
+        }
+
+        private void Triangulate()
+        {
+            vertices.Clear();
+            triangles.Clear();
+            mesh.Clear();
+
+            TriangulateCellRows();
+
+            mesh.vertices = vertices.ToArray();
+            mesh.triangles = triangles.ToArray();
+        }
+
+        private void TriangulateCellRows()
+        {
+            int cells = resolution - 1;
+            for (int y = 0, i = 0; y < cells; y++, i++)
+            {
+                for (int x = 0; x < cells; x++, i++)
+                {
+                    TriangulateCell(
+                        voxels[i],
+                        voxels[i+1],
+                        voxels[i+resolution],
+                        voxels[i+resolution+1]);
+                }
+            }
+        }
+
+        private void TriangulateCell(Voxel a, Voxel b, Voxel c, Voxel d)
+        {
+            int cellType = 0;
+            if (a.state)
+                cellType |= 1;
+            if (b.state)
+                cellType |= 2;
+            if (c.state)
+                cellType |= 4;
+            if (d.state)
+                cellType |= 8;
         }
 
         private void SetVoxelColors()
         {
             for (int i = 0; i < voxels.Length; i++)
             {
-                voxelMaterials[i].color = voxels[i] ? Color.black : Color.white;
+                voxelMaterials[i].color = voxels[i].state ? Color.black : Color.white;
             }
         }
 
@@ -44,8 +102,8 @@ namespace FutureGames.Lab
         {
             GameObject go = Instantiate(voxelPrefab);
             go.transform.parent = transform;
-            go.transform.localPosition = new Vector3(x + 0.5f, y + 0.5f, 0f) * voxelSize;
-            go.transform.localScale = Vector3.one * voxelSize * 0.9f;
+            go.transform.localPosition = new Vector3(x + 0.5f, y + 0.5f, -0.01f) * voxelSize;
+            go.transform.localScale = Vector3.one * voxelSize * 0.1f;
 
             voxelMaterials[i] = go.GetComponent<MeshRenderer>().material;
         }
@@ -57,11 +115,11 @@ namespace FutureGames.Lab
                 int i = y * resolution + stencile.xStart;
                 for (int x = stencile.xStart; x <= stencile.xEnd; x++, i++)
                 {
-                    voxels[i] = stencile.Apply(x, y, voxels[i]);
+                    voxels[i].state = stencile.Apply(x, y, voxels[i].state);
                 }
             }
 
-            SetVoxelColors();
+            Refresh();
         }
     }
 }

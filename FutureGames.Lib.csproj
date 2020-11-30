@@ -88,6 +88,7 @@
     <Compile Include="Assets\Lib\Scripts\Extensions\TextureExtensions.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\QuadtreeTextureCompressionMono.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\CompressedTextureGeneratorMono.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelStencileCircle.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Fibonacci\Fibonacci.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\Quadtree\Rectangle.cs" />
     <Compile Include="Assets\Lib\Scripts\Noise\PerlinNoise.cs" />
@@ -98,7 +99,7 @@
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeCellEdge.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelMap.cs" />
     <Compile Include="Assets\Lib\Scripts\Tests\TestPerlinNoise.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelStencileCircle.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\Voxel.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Lib\Scripts\FutureGames.Lib.asmdef" />
