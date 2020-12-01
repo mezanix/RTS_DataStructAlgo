@@ -99,8 +99,8 @@ namespace FutureGames.Lab
 
         float ColorCostFactor()
         {
-            float comp = (float)(40 - cost);
-            float deno = 40f;
+            float comp = (float)(10 - cost);
+            float deno = 10f;
 
             return comp / deno;
         }

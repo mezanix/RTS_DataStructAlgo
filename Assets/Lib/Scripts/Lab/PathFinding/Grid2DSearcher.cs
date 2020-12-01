@@ -21,41 +21,41 @@ namespace FutureGames.Lab
             //GridCell2D.BecomeTarget += SetTarget;
         }
 
-        //public IEnumerator BreadthFirstTravel(GridCell2D start)
-        //{
-        //    this.start = start;
+        public IEnumerator BreadthFirstTravel(GridCell2D start)
+        {
+            //this.start = start;
 
-        //    Queue<GridCell2D> frontier = new Queue<GridCell2D>();
-        //    HashSet<GridCell2D> reached = new HashSet<GridCell2D>();
+            Queue<GridCell2D> frontier = new Queue<GridCell2D>();
+            HashSet<GridCell2D> reached = new HashSet<GridCell2D>();
 
-        //    frontier.Enqueue(start);
-        //    reached.Add(start);
+            frontier.Enqueue(start);
+            reached.Add(start);
 
-        //    while(frontier.Count > 0)
-        //    {
-        //        GridCell2D current = frontier.Dequeue();
-        //        foreach(GridCell2D t in current.Neighbors)
-        //        {
-        //            if (reached.Contains(t))
-        //                continue;
+            while (frontier.Count > 0)
+            {
+                GridCell2D current = frontier.Dequeue();
+                foreach (GridCell2D t in current.Neighbors)
+                {
+                    if (reached.Contains(t))
+                        continue;
 
-        //            frontier.Enqueue(t);
-        //            reached.Add(t);
-        //        }
+                    frontier.Enqueue(t);
+                    reached.Add(t);
+                }
 
-        //        foreach (GridCell2D t in reached)
-        //        {
-        //            t.SetColor(Color.white);
-        //        }
+                foreach (GridCell2D t in reached)
+                {
+                    t.SetColor(Color.white);
+                }
 
-        //        foreach (GridCell2D t in frontier)
-        //        {
-        //            t.SetColor(GridCell2D.frontierColor);
-        //        }
+                foreach (GridCell2D t in frontier)
+                {
+                    t.SetColor(GridCell2D.frontierColor);
+                }
 
-        //        yield return new WaitForSeconds(animationWait);
-        //    }
-        //}
+                yield return new WaitForSeconds(animationWait);
+            }
+        }
 
         public IEnumerator BreadthFirstTravelPathTrack()
         {
@@ -246,12 +246,9 @@ namespace FutureGames.Lab
 
             frontier.Add(grid.StartCell);
             frontier.Sort(new GridCell2DDistanceToTargetAndCostComparer());
-
             cameFrom.Add(grid.StartCell, null);
-
             Dictionary<GridCell2D, int> costSoFar = new Dictionary<GridCell2D, int>();
             costSoFar.Add(grid.StartCell, grid.StartCell.Cost);
-
 
             while (frontier.Count > 0)
             {

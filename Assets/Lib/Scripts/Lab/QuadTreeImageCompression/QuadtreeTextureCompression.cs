@@ -20,7 +20,7 @@ namespace FutureGames.Lab.QuadtreeSpace
 
         float maxCumulatedWhite = 0f;
 
-        const float relativeLimit = 0.001f;
+        const float relativeLimit = 0.01f;
 
         public QuadtreeTextureCompression(Rectangle boundary, Texture2D map, Texture2D sourceImage)
         {
@@ -70,6 +70,18 @@ namespace FutureGames.Lab.QuadtreeSpace
         float RelativeCumulatedWhite()
         {
             return PartialCumulatedWhite(map) / maxCumulatedWhite;
+        }
+        float PartialCumulatedWhite(Texture2D texture)
+        {
+            float r = 0f;
+            for (float y = boundary.South; y < boundary.North; y += 1f)
+            {
+                for (float x = boundary.West; x < boundary.East; x += 1f)
+                {
+                    r += texture.GetPixel((int)x, (int)y).r;
+                }
+            }
+            return r;
         }
 
         public void Show(Texture2D texture)
@@ -125,18 +137,6 @@ namespace FutureGames.Lab.QuadtreeSpace
             southWest.Subdivide();
         }
 
-        float PartialCumulatedWhite(Texture2D texture)
-        {
-            float r = 0f;
-            for (float y = boundary.South; y < boundary.North; y += 1f)
-            {
-                for (float x = boundary.West; x < boundary.East; x += 1f)
-                {
-                    r += texture.GetPixel((int)x, (int)y).r;
-                }
-            }
-            return r;
-        }
         float MaxCumulatedWhite(Texture2D texture)
         {
             float r = 0f;
