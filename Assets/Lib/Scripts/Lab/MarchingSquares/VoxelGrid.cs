@@ -73,7 +73,9 @@ namespace FutureGames.Lab
             {
                 dummy_x.Become_X_DummyOf(x_neib.voxels[0], gridSize);
             }
+
             TriangulateCellRows();
+            
             if (y_neib != null)
                 TriangulateGapRow();
 

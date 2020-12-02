@@ -52,7 +52,9 @@ namespace FutureGames.Lab.QuadtreeSpace
 
                     for (int i = 0; i < leafs.Count; i++)
                     {
-                        if (leafs[i].boundary.Contains(new Point((float)positionInSource.x, (float)positionInSource.y)) == false)
+                        if (leafs[i].boundary.Contains(
+                            new Point((float)positionInSource.x, 
+                            (float)positionInSource.y)) == false)
                             continue;
 
                         texture.SetPixel(x, y, leafs[i].GetDominantColorFromSource());
@@ -234,17 +236,19 @@ namespace FutureGames.Lab.QuadtreeSpace
 
         private Color GetDominantColorFromSource()
         {
-            Color[] colors =
-                sourceImage.GetPixels((int)boundary.West, (int)boundary.South, (int)boundary.DoubleWidth, (int)boundary.DoubleHeight);
+            //Color[] colors =
+            //    sourceImage.GetPixels(
+            //        (int)boundary.West, (int)boundary.South, 
+            //        (int)boundary.DoubleWidth, (int)boundary.DoubleHeight);
 
-            Vector3 hsvAverage = new Vector3(
-                TextureExtensions.HueAverage(colors),
-                TextureExtensions.SaturationAverage(colors),
-                TextureExtensions.ValueAverage(colors));
+            //Vector3 hsvAverage = new Vector3(
+            //    TextureExtensions.HueAverage(colors),
+            //    TextureExtensions.SaturationAverage(colors),
+            //    TextureExtensions.ValueAverage(colors));
 
-            return Color.HSVToRGB(hsvAverage.x, hsvAverage.y, hsvAverage.z);
+            //return Color.HSVToRGB(hsvAverage.x, hsvAverage.y, hsvAverage.z);
 
-            //return sourceImage.GetPixel((int)boundary.centerX, (int)boundary.centerY);
+            return sourceImage.GetPixel((int)boundary.centerX, (int)boundary.centerY);
         }
 
         private Color GetDominantColorFromSource(int x, int y)
