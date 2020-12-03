@@ -53,11 +53,13 @@ namespace FutureGames.Lab
         {
             int currentIndex = activeCells.Count - 1;
             MazeCell currentCell = activeCells[currentIndex];
+
             if(currentCell.IsFullyInitialized)
             {
                 activeCells.RemoveAt(currentIndex);
                 return;
             }
+
             MazeDirection direction = currentCell.RandomUninitializedDirection;
             Vector2Int coord = currentCell.coord + direction.ToVector2Int();
 
