@@ -63,6 +63,7 @@
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\Maze.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\HexaMaze\Scripts\MazeWallHexa.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\PathFinding\Grid2DSearcher.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\Voxel.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LinkedList\IntLinkedList.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\LaplacianOnTexture.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\QuadTreeImageCompression\QuadtreeTextureCompression.cs" />
@@ -99,7 +100,8 @@
     <Compile Include="Assets\Lib\Scripts\Lab\MazeGenerators\SquaredMaze\Scripts\MazeCellEdge.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\VoxelMap.cs" />
     <Compile Include="Assets\Lib\Scripts\Tests\TestPerlinNoise.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\MarchingSquares\Voxel.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\LSystem\LSystemGenerator.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\LSystemSimple\LSystemSimple.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Lib\Scripts\FutureGames.Lib.asmdef" />
