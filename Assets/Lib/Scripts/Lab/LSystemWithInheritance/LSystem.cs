@@ -13,12 +13,13 @@ namespace FutureGames.Lab
         string input = "";
         bool isTree = true;
 
-        LSystemStateModifier stateModifier = null;
         LSystemState state = null;
 
         LSystemActor actor = null;
 
         GameObject toClone = null;
+
+        LSystemInterpreter interpreter = new LSystemInterpreter();
 
         public LSystem(string input, bool isTree, GameObject toClone)
         {
@@ -32,21 +33,14 @@ namespace FutureGames.Lab
         public void Init()
         {
             state = new LSystemState();
-            stateModifier = new LSystemStateModifier(state);
 
-            if(isTree)
-                actor = new LSystemActorTree(state, toClone);
-            else
-                actor = new LSystemActorStreet(state, toClone);
+            actor = new LSystemActor(state, interpreter, toClone);
         }
 
         public void Run()
         {
-            // modify the state
-            stateModifier.Do(input);
-
             // act using the state
-            actor.Do();
+            actor.Do(input, isTree);
         }
     }
 }

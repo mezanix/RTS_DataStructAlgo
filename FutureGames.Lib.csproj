@@ -104,12 +104,12 @@
     <Compile Include="Assets\Lib\Scripts\Tests\TestPerlinNoise.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystem.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystemInterpreter.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystemStateModifier.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystemState.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystemActor.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystemActorTree.cs" />
     <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystemMono.cs" />
-    <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystemActorStreet.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystemAction.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystemActionStreet.cs" />
+    <Compile Include="Assets\Lib\Scripts\Lab\LSystemWithInheritance\LSystemActionTree.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Lib\Scripts\FutureGames.Lib.asmdef" />

@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0a64cae2016b93449ebaa4fcbdecb6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: FRFLF
+  input: FrFlFdrrF
   isTree: 0
   toClone: {fileID: 6791086637667869208, guid: c5ac049d0f036704d9b2bfc2fb158d35, type: 3}
 --- !u!4 &708379263

@@ -3,44 +3,58 @@ using UnityEngine;
 
 namespace FutureGames.Lab
 {
-    public enum Actions
-    {
-        GoForward,
-        GoRight,
-        GoLeft
-    }
-
     /// <summary>
     /// Hold a set of rules
     /// Interprets according to the rules
     /// </summary>
     public class LSystemInterpreter
     {
-        public Actions[] Interpret(string input)
+        public LSystemAction[] Interpret(string input, LSystemState state, bool isTree)
         {
             string inputTransformed = TransformInput(input);
 
-            List<Actions> r = new List<Actions>();
+            List<LSystemAction> r = new List<LSystemAction>();
 
             foreach (char c in inputTransformed)
             {
                 switch (c)
                 {
-                    case 'F':
-                        r.Add(Actions.GoForward);
+                    case 'F': // spawn in forward direction
+                        r.Add(CreateLSystemAction(isTree, Vector3.zero, 0f, true, state));
+                        break;
+                    case 'f': // move in forward direction
+                        r.Add(CreateLSystemAction(isTree, Vector3.forward, 0f, false, state));
                         break;
 
                     case 'R':
-                        r.Add(Actions.GoRight);
+                        r.Add(CreateLSystemAction(isTree, Vector3.zero, 90f, true, state));
+                        break;
+                    case 'r':
+                        r.Add(CreateLSystemAction(isTree, Vector3.right, 90f, false, state));
                         break;
 
                     case 'L':
-                        r.Add(Actions.GoLeft);
+                        r.Add(CreateLSystemAction(isTree, Vector3.zero, -90f, true, state));
+                        break;
+                    case 'l':
+                        r.Add(CreateLSystemAction(isTree, Vector3.left, -90f, false, state));
+                        break;
+
+                    case 'd':
+                        r.Add(CreateLSystemAction(isTree, Vector3.back, 0f, false, state));
                         break;
                 }
             }
-
+    
             return r.ToArray();
+        }
+
+        LSystemAction CreateLSystemAction(bool isTree, Vector3 dir, float angle, bool spawn, LSystemState state)
+        {
+            if (isTree)
+                return new LSystemActionTree(dir, angle, spawn, state);
+            else
+                return new LSystemActionStreet(dir, angle, spawn, state);
         }
 
         private string TransformInput(string input)
@@ -52,7 +66,7 @@ namespace FutureGames.Lab
                 switch (c)
                 {
                     case 'F':
-                        r += "FRLLR";
+                        r += "FfRL";
                         break;
 
                     default:
